@@ -70,6 +70,8 @@ class Subscription(models.Model):
     price = models.IntegerField()
     discount_rate = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
     terms = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return f"{self.name} - {self.price} RWF"
@@ -86,6 +88,7 @@ class ParkingLot(models.Model):
     chargingStation = models.BooleanField(default=False)
     manager_1 = models.ForeignKey('User', related_name='primary_manager', null=True, on_delete=models.SET_NULL)
     manager_2 = models.ForeignKey('User', related_name='secondary_manager', on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.name} - {self.address} - {self.manager_1}"
@@ -96,11 +99,13 @@ class ParkingSpace(models.Model):
     space_code = models.CharField(max_length=6, unique=True)
     type = models.CharField(max_length=20, choices=SPACE_TYPE_CHOICES, default='REGULAR')
     status = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class Ticket(models.Model):
     parking = models.ForeignKey('ParkingLot', on_delete=models.DO_NOTHING)
     subscription = models.ForeignKey('Subscription', on_delete=models.SET_NULL, null=True, blank=True)
     parking_space = models.ForeignKey('ParkingSpace', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
     plate = models.CharField(validators=[plate_regex], max_length=9)
     entry_time = models.DateTimeField(default=timezone.now)
     exit_time = models.DateTimeField(null=True, blank=True)
@@ -108,3 +113,4 @@ class Ticket(models.Model):
     total_payment = models.IntegerField
     payment_status = models.CharField(max_length=50, choices= PAYMENT_STATUS, default='unpaid')
     parking_attendee = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
