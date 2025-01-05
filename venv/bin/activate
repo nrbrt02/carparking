@@ -1,70 +1,1381 @@
-# This file must be used with "source bin/activate" *from bash*
-# You cannot run it directly
+Script started on 2025-01-05 12:35:49+02:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="187" LINES="16"]
+[?2004h]0;n0r@n0r: ~/Documents/ImirimoYamaboko/carparking[01;32mn0r@n0r[00m:[01;34m~/Documents/ImirimoYamaboko/carparking[00m$ code .[4Plscode .[4Plsmkdir homeSite dashls[Kcode .[K[K[K[K[K[Ksource venv/bin/activate
+[?2004l[?2004h]0;n0r@n0r: ~/Documents/ImirimoYamaboko/carparking[01;32mn0r@n0r[00m:[01;34m~/Documents/ImirimoYamaboko/carparking[00m$ source venv/bin/activate^C[?2004l[?2004h[?2004l
+[?2004h]0;n0r@n0r: ~/Documents/ImirimoYamaboko/carparking[01;32mn0r@n0r[00m:[01;34m~/Documents/ImirimoYamaboko/carparking[00m$ [7msource venv/bin/activate[27msource venv/bin/activate
+[?2004l[?2004h]0;n0r@n0r: ~/Documents/ImirimoYamaboko/carparking[01;32mn0r@n0r[00m:[01;34m~/Documents/ImirimoYamaboko/carparking[00m$ python manage.py runserver
+[?2004lWatching for file changes with StatReloader
+Performing system checks...
 
-deactivate () {
-    # reset old environment variables
-    if [ -n "${_OLD_VIRTUAL_PATH:-}" ] ; then
-        PATH="${_OLD_VIRTUAL_PATH:-}"
-        export PATH
-        unset _OLD_VIRTUAL_PATH
-    fi
-    if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ] ; then
-        PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
-        export PYTHONHOME
-        unset _OLD_VIRTUAL_PYTHONHOME
-    fi
+System check identified no issues (0 silenced).
+[31;1mError: That port is already in use.
+[0m[?2004h]0;n0r@n0r: ~/Documents/ImirimoYamaboko/carparking[01;32mn0r@n0r[00m:[01;34m~/Documents/ImirimoYamaboko/carparking[00m$ python manage.py runserver
+[?2004lWatching for file changes with StatReloader
+Performing system checks...
 
-    # Call hash to forget past commands. Without forgetting
-    # past commands the $PATH changes we made may not be respected
-    hash -r 2> /dev/null
+System check identified no issues (0 silenced).
+January 05, 2025 - 10:36:58
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
 
-    if [ -n "${_OLD_VIRTUAL_PS1:-}" ] ; then
-        PS1="${_OLD_VIRTUAL_PS1:-}"
-        export PS1
-        unset _OLD_VIRTUAL_PS1
-    fi
+/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
 
-    unset VIRTUAL_ENV
-    unset VIRTUAL_ENV_PROMPT
-    if [ ! "${1:-}" = "nondestructive" ] ; then
-    # Self destruct!
-        unset -f deactivate
-    fi
-}
+System check identified no issues (0 silenced).
+January 05, 2025 - 10:41:07
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
 
-# unset irrelevant variables
-deactivate nondestructive
+/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
 
-# on Windows, a path can contain colons and backslashes and has to be converted:
-if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
-    # transform D:\path\to\venv to /d/path/to/venv on MSYS
-    # and to /cygdrive/d/path/to/venv on Cygwin
-    export VIRTUAL_ENV=$(cygpath "/home/n0r/Documents/ImirimoYamaboko/carparking/venv")
-else
-    # use the path as-is
-    export VIRTUAL_ENV="/home/n0r/Documents/ImirimoYamaboko/carparking/venv"
-fi
+System check identified no issues (0 silenced).
+January 05, 2025 - 10:41:14
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
 
-_OLD_VIRTUAL_PATH="$PATH"
-PATH="$VIRTUAL_ENV/bin:$PATH"
-export PATH
+/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
 
-# unset PYTHONHOME if set
-# this will fail if PYTHONHOME is set to the empty string (which is bad anyway)
-# could use `if (set -u; : $PYTHONHOME) ;` in bash
-if [ -n "${PYTHONHOME:-}" ] ; then
-    _OLD_VIRTUAL_PYTHONHOME="${PYTHONHOME:-}"
-    unset PYTHONHOME
-fi
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/management/commands/runserver.py", line 134, in inner_run
+    self.check(display_num_errors=True)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/management/base.py", line 486, in check
+    all_issues = checks.run_checks(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/checks/registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/checks/urls.py", line 136, in check_custom_error_handlers
+    handler = resolver.resolve_error_handler(status_code)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 732, in resolve_error_handler
+    callback = getattr(self.urlconf_module, "handler%s" % view_type, None)
+                       ^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 711, in urlconf_module
+    return import_module(self.urlconf_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/urls.py", line 22, in <module>
+    path('', include('app.urls')),
+             ^^^^^^^
+NameError: name 'include' is not defined
+/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
 
-if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
-    _OLD_VIRTUAL_PS1="${PS1:-}"
-    PS1="(venv) ${PS1:-}"
-    export PS1
-    VIRTUAL_ENV_PROMPT="(venv) "
-    export VIRTUAL_ENV_PROMPT
-fi
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/management/commands/runserver.py", line 134, in inner_run
+    self.check(display_num_errors=True)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/management/base.py", line 486, in check
+    all_issues = checks.run_checks(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/checks/registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/checks/urls.py", line 136, in check_custom_error_handlers
+    handler = resolver.resolve_error_handler(status_code)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 732, in resolve_error_handler
+    callback = getattr(self.urlconf_module, "handler%s" % view_type, None)
+                       ^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 711, in urlconf_module
+    return import_module(self.urlconf_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/urls.py", line 22, in <module>
+    path('', include('app.urls')),
+             ^^^^^^^
+NameError: name 'include' is not defined
+/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
 
-# Call hash to forget past commands. Without forgetting
-# past commands the $PATH changes we made may not be respected
-hash -r 2> /dev/null
+System check identified no issues (0 silenced).
+January 05, 2025 - 10:41:45
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+[33;1m?: (staticfiles.W004) The directory '/home/n0r/Documents/ImirimoYamaboko/carparking/statics' in the STATICFILES_DIRS setting does not exist.[0m
+
+System check identified 1 issue (0 silenced).
+January 05, 2025 - 10:44:14
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+/home/n0r/Documents/ImirimoYamaboko/carparking/carparking/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+[33;1m?: (staticfiles.W004) The directory '/home/n0r/Documents/ImirimoYamaboko/carparking/statics' in the STATICFILES_DIRS setting does not exist.[0m
+
+System check identified 1 issue (0 silenced).
+January 05, 2025 - 10:44:51
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py", line 7, in home
+    return render(request, 'index.html', context)
+                                         ^^^^^^^
+NameError: name 'context' is not defined
+[05/Jan/2025 10:45:33] [35;1m"GET / HTTP/1.1" 500 67131[0m
+/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+[33;1m?: (staticfiles.W004) The directory '/home/n0r/Documents/ImirimoYamaboko/carparking/statics' in the STATICFILES_DIRS setting does not exist.[0m
+
+System check identified 1 issue (0 silenced).
+January 05, 2025 - 10:45:48
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+[05/Jan/2025 10:45:49] [m"GET / HTTP/1.1" 200 12844[0m
+Not Found: /assets/demo/demo.css
+Not Found: /assets/css/material-dashboard.css
+[05/Jan/2025 10:45:49] [33m"GET /assets/demo/demo.css HTTP/1.1" 404 2485[0m
+Not Found: /assets/js/core/jquery.min.js
+[05/Jan/2025 10:45:49] [33m"GET /assets/css/material-dashboard.css?v=2.1.2 HTTP/1.1" 404 2532[0m
+Not Found: /assets/js/core/popper.min.js
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:45:49] [33m"GET /assets/js/core/jquery.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/plugins/moment.min.js
+[05/Jan/2025 10:45:49] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:45:49] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:45:49] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+[05/Jan/2025 10:45:49] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+[05/Jan/2025 10:45:49] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:45:49] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:45:50] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 10:45:51] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+Not Found: /assets/js/core/jquery.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/core/jquery.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/popper.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/moment.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:45:51] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:45:52] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:45:53] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+Not Found: /assets/img/apple-icon.png
+[05/Jan/2025 10:45:53] [33m"GET /assets/img/apple-icon.png HTTP/1.1" 404 2500[0m
+Not Found: /assets/img/favicon.png
+[05/Jan/2025 10:45:53] [33m"GET /assets/img/favicon.png HTTP/1.1" 404 2491[0m
+[05/Jan/2025 10:46:00] [m"GET / HTTP/1.1" 200 12844[0m
+/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+[33;1m?: (staticfiles.W004) The directory '/home/n0r/Documents/ImirimoYamaboko/carparking/statics' in the STATICFILES_DIRS setting does not exist.[0m
+
+System check identified 1 issue (0 silenced).
+January 05, 2025 - 10:46:27
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'img/apple-icon.png'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py", line 7, in home
+    return render(request, 'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 573, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 7: 'img/apple-icon.png'. Did you forget to register or load this tag?
+[05/Jan/2025 10:47:40] [35;1m"GET / HTTP/1.1" 500 149372[0m
+[05/Jan/2025 10:47:58] [m"GET / HTTP/1.1" 200 12843[0m
+Not Found: /assets/demo/demo.css
+[05/Jan/2025 10:47:59] [33m"GET /assets/demo/demo.css HTTP/1.1" 404 2485[0m
+Not Found: /assets/css/material-dashboard.css
+Not Found: /assets/js/core/popper.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/css/material-dashboard.css?v=2.1.2 HTTP/1.1" 404 2532[0m
+Not Found: /assets/js/core/jquery.min.js
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/core/jquery.min.js HTTP/1.1" 404 2509[0m
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+Not Found: /assets/js/plugins/moment.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/arrive.min.js
+Not Found: /assets/js/plugins/chartist.min.js
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+[05/Jan/2025 10:47:59] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/demo/demo.js
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:48:00] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+[05/Jan/2025 10:48:00] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 10:48:00] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+Not Found: /assets/js/core/popper.min.js
+[05/Jan/2025 10:48:00] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:48:00] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:48:01] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/moment.min.js
+[05/Jan/2025 10:48:01] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:48:01] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:48:02] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:48:02] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:48:02] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:48:02] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:48:02] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:48:03] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:48:03] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:48:03] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:48:03] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:48:03] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:48:04] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:48:04] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:48:05] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:48:05] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:48:05] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+[05/Jan/2025 10:48:05] [33m"GET /static/img/apple-icon.png HTTP/1.1" 404 1868[0m
+[05/Jan/2025 10:49:36] [m"GET / HTTP/1.1" 200 12848[0m
+Not Found: /assets/css/material-dashboard.css
+[05/Jan/2025 10:49:36] [33m"GET /assets/css/material-dashboard.css?v=2.1.2 HTTP/1.1" 404 2532[0m
+Not Found: /assets/js/core/jquery.min.js
+[05/Jan/2025 10:49:36] [33m"GET /assets/js/core/jquery.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:49:36] [33m"GET /static/demo/demo.css HTTP/1.1" 404 1853[0m
+Not Found: /assets/js/core/popper.min.js
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:49:36] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+Not Found: /assets/js/plugins/moment.min.js
+[05/Jan/2025 10:49:36] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/arrive.min.js
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/chartist.min.js
+Not Found: /assets/js/plugins/bootstrap-notify.js
+Not Found: /assets/demo/demo.js
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 10:49:37] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/core/jquery.min.js
+[05/Jan/2025 10:49:37] [33m"GET /assets/js/core/jquery.min.js HTTP/1.1" 404 2509[0m
+[05/Jan/2025 10:49:37] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+Not Found: /assets/js/core/popper.min.js
+[05/Jan/2025 10:49:38] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:49:38] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:49:39] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/moment.min.js
+[05/Jan/2025 10:49:39] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:49:39] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:49:40] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:49:40] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:49:41] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:49:41] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:49:41] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:49:41] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:49:41] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:49:42] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:49:42] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:49:42] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:49:42] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:49:43] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:49:43] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:49:43] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:49:43] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+[05/Jan/2025 10:49:44] [33m"GET /static/img/favicon.png HTTP/1.1" 404 1859[0m
+[05/Jan/2025 10:55:40] [m"GET / HTTP/1.1" 200 12848[0m
+Not Found: /assets/css/material-dashboard.css
+[05/Jan/2025 10:55:40] [33m"GET /assets/css/material-dashboard.css?v=2.1.2 HTTP/1.1" 404 2532[0m
+Not Found: /assets/js/core/jquery.min.js
+[05/Jan/2025 10:55:40] [33m"GET /assets/js/core/jquery.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/popper.min.js
+[05/Jan/2025 10:55:40] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/plugins/moment.min.js
+Not Found: /assets/js/plugins/sweetalert2.js
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:55:41] [m"GET /static/demo/demo.css HTTP/1.1" 200 1027[0m
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 10:55:41] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+Not Found: /assets/js/core/jquery.min.js
+[05/Jan/2025 10:55:41] [33m"GET /assets/js/core/jquery.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/popper.min.js
+[05/Jan/2025 10:55:42] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2509[0m
+Not Found: /assets/js/core/bootstrap-material-design.min.js
+[05/Jan/2025 10:55:42] [33m"GET /assets/js/core/bootstrap-material-design.min.js HTTP/1.1" 404 2566[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.jquery.min.js
+[05/Jan/2025 10:55:43] [33m"GET /assets/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/moment.min.js
+[05/Jan/2025 10:55:43] [33m"GET /assets/js/plugins/moment.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:55:43] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:55:43] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:55:43] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:55:44] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:55:44] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:55:44] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:55:44] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:55:45] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:55:45] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:55:45] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:55:45] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:55:45] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:55:46] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:55:46] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:55:46] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:55:46] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+[05/Jan/2025 10:58:45] [m"GET / HTTP/1.1" 200 12840[0m
+[05/Jan/2025 10:58:46] [m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 200 76652[0m
+[05/Jan/2025 10:58:46] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 10:58:46] [33m"GET /static/css/material-dashboard.css%3Fv%3D2.1.2 HTTP/1.1" 404 1920[0m
+[05/Jan/2025 10:58:46] [m"GET /static/js/core/jquery.min.js HTTP/1.1" 200 145741[0m
+[05/Jan/2025 10:58:46] [m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 200 25332[0m
+[05/Jan/2025 10:58:46] [m"GET /static/js/plugins/moment.min.js HTTP/1.1" 200 58687[0m
+[05/Jan/2025 10:58:46] [m"GET /static/js/core/popper.min.js HTTP/1.1" 200 33477[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:58:46] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+[05/Jan/2025 10:58:46] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 10:58:46] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:58:47] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:58:48] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:58:48] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:58:48] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:58:48] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:58:49] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:58:49] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:58:49] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:58:49] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:58:50] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:58:50] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:58:50] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:58:50] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:58:51] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:58:51] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:58:51] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+[05/Jan/2025 10:59:08] [m"GET / HTTP/1.1" 200 12840[0m
+[05/Jan/2025 10:59:09] [33m"GET /static/css/material-dashboard.css%3Fv%3D2.1.2 HTTP/1.1" 404 1920[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 10:59:09] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/js/plugins/sweetalert2.js
+[05/Jan/2025 10:59:09] [33m"GET /assets/js/plugins/sweetalert2.js HTTP/1.1" 404 2521[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 10:59:10] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 10:59:10] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 10:59:11] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 10:59:11] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 10:59:11] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 10:59:11] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 10:59:12] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 10:59:12] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 10:59:12] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 10:59:12] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 10:59:12] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 10:59:13] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 10:59:13] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/material-dashboard.js
+[05/Jan/2025 10:59:13] [33m"GET /assets/js/material-dashboard.js?v=2.1.2 HTTP/1.1" 404 2526[0m
+Not Found: /assets/demo/demo.js
+[05/Jan/2025 10:59:13] [33m"GET /assets/demo/demo.js HTTP/1.1" 404 2482[0m
+[05/Jan/2025 11:00:46] [m"GET / HTTP/1.1" 200 12838[0m
+[05/Jan/2025 11:00:46] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:00:46] [33m"GET /static/css/material-dashboard.css%3Fv%3D2.1.2 HTTP/1.1" 404 1920[0m
+[05/Jan/2025 11:00:46] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:00:46] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:00:46] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:00:46] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:00:46] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:00:46] [m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 200 123144[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 11:00:46] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+[05/Jan/2025 11:00:46] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+[05/Jan/2025 11:00:47] [m"GET /static/demo/demo.js HTTP/1.1" 200 6529[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+[05/Jan/2025 11:00:47] [33m"GET /static/js/material-dashboard.js%3Fv%3D2.1.2 HTTP/1.1" 404 1914[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+[05/Jan/2025 11:00:47] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery.validate.min.js
+[05/Jan/2025 11:00:47] [33m"GET /assets/js/plugins/jquery.validate.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jquery.bootstrap-wizard.js
+[05/Jan/2025 11:00:48] [33m"GET /assets/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 404 2557[0m
+Not Found: /assets/js/plugins/bootstrap-selectpicker.js
+[05/Jan/2025 11:00:48] [33m"GET /assets/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 404 2554[0m
+Not Found: /assets/js/plugins/bootstrap-datetimepicker.min.js
+[05/Jan/2025 11:00:48] [33m"GET /assets/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 404 2572[0m
+Not Found: /assets/js/plugins/jquery.dataTables.min.js
+[05/Jan/2025 11:00:48] [33m"GET /assets/js/plugins/jquery.dataTables.min.js HTTP/1.1" 404 2551[0m
+Not Found: /assets/js/plugins/bootstrap-tagsinput.js
+[05/Jan/2025 11:00:49] [33m"GET /assets/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/jasny-bootstrap.min.js
+[05/Jan/2025 11:00:49] [33m"GET /assets/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 404 2545[0m
+Not Found: /assets/js/plugins/fullcalendar.min.js
+[05/Jan/2025 11:00:49] [33m"GET /assets/js/plugins/fullcalendar.min.js HTTP/1.1" 404 2536[0m
+Not Found: /assets/js/plugins/jquery-jvectormap.js
+[05/Jan/2025 11:00:49] [33m"GET /assets/js/plugins/jquery-jvectormap.js HTTP/1.1" 404 2539[0m
+Not Found: /assets/js/plugins/nouislider.min.js
+[05/Jan/2025 11:00:49] [33m"GET /assets/js/plugins/nouislider.min.js HTTP/1.1" 404 2530[0m
+Not Found: /assets/js/plugins/arrive.min.js
+[05/Jan/2025 11:00:50] [33m"GET /assets/js/plugins/arrive.min.js HTTP/1.1" 404 2518[0m
+Not Found: /assets/js/plugins/chartist.min.js
+[05/Jan/2025 11:00:50] [33m"GET /assets/js/plugins/chartist.min.js HTTP/1.1" 404 2524[0m
+Not Found: /assets/js/plugins/bootstrap-notify.js
+[05/Jan/2025 11:00:50] [33m"GET /assets/js/plugins/bootstrap-notify.js HTTP/1.1" 404 2536[0m
+[05/Jan/2025 11:00:51] [33m"GET /static/js/material-dashboard.js%3Fv%3D2.1.2 HTTP/1.1" 404 1914[0m
+[05/Jan/2025 11:05:34] [m"GET / HTTP/1.1" 200 12812[0m
+[05/Jan/2025 11:05:34] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:34] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:34] [33m"GET /static/css/material-dashboard.css%3Fv%3D2.1.2 HTTP/1.1" 404 1920[0m
+[05/Jan/2025 11:05:34] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:34] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:34] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:34] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:34] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 200 40248[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 200 13071[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 200 99232[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 200 16780[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 200 21090[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 200 22318[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 200 213775[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 200 2183500[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 200 21163[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 200 253881[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 200 5091[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 200 14466[0m
+[05/Jan/2025 11:05:35] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:05:35] [m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 200 40174[0m
+[05/Jan/2025 11:05:35] [33m"GET /static/js/material-dashboard.js%3Fv%3D2.1.2 HTTP/1.1" 404 1914[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 11:05:35] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+[05/Jan/2025 11:05:37] [33m"GET /static/js/material-dashboard.js%3Fv%3D2.1.2 HTTP/1.1" 404 1914[0m
+[05/Jan/2025 11:07:20] [m"GET / HTTP/1.1" 200 12800[0m
+[05/Jan/2025 11:07:21] [m"GET /static/css/material-dashboard.css HTTP/1.1" 200 428233[0m
+[05/Jan/2025 11:07:21] [33m"GET /static/js/material-dashboard.js%3Fv%3D2.1.2 HTTP/1.1" 404 1914[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 11:07:21] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+[05/Jan/2025 11:07:22] [33m"GET /static/js/material-dashboard.js%3Fv%3D2.1.2 HTTP/1.1" 404 1914[0m
+[05/Jan/2025 11:08:01] [m"GET / HTTP/1.1" 200 12779[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:01] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:08:02] [m"GET /static/js/material-dashboard.js HTTP/1.1" 200 19482[0m
+Not Found: /assets/img/cover.jpg
+[05/Jan/2025 11:08:02] [33m"GET /assets/img/cover.jpg HTTP/1.1" 404 2485[0m
+[05/Jan/2025 11:10:49] [m"GET / HTTP/1.1" 200 12777[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:49] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/js/material-dashboard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:10:50] [m"GET /static/img/cover.jpg HTTP/1.1" 200 346524[0m
+[05/Jan/2025 11:12:21] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 11:13:00] [m"GET / HTTP/1.1" 200 12626[0m
+[05/Jan/2025 11:16:56] [m"GET / HTTP/1.1" 200 12587[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/js/material-dashboard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:16:56] [36m"GET /static/img/cover.jpg HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:17:43] [m"GET / HTTP/1.1" 200 12729[0m
+[05/Jan/2025 11:18:00] [m"GET / HTTP/1.1" 200 12514[0m
+[05/Jan/2025 11:18:18] [m"GET / HTTP/1.1" 200 12668[0m
+[05/Jan/2025 11:19:01] [m"GET / HTTP/1.1" 200 12282[0m
+[05/Jan/2025 11:19:27] [m"GET / HTTP/1.1" 200 12186[0m
+[05/Jan/2025 11:20:33] [m"GET / HTTP/1.1" 200 12175[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:33] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/js/material-dashboard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:20:34] [36m"GET /static/img/cover.jpg HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:21:05] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 11:21:16] [m"GET / HTTP/1.1" 200 12175[0m
+[05/Jan/2025 11:21:16] [m"GET /static/css/material-dashboard.css HTTP/1.1" 200 428233[0m
+[05/Jan/2025 11:21:16] [m"GET /static/demo/demo.css HTTP/1.1" 200 1027[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/core/jquery.min.js HTTP/1.1" 200 145741[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 200 25332[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/core/popper.min.js HTTP/1.1" 200 33477[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 200 76652[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/moment.min.js HTTP/1.1" 200 58687[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 200 123144[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 200 21090[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 200 13071[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 200 40248[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 200 99232[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 200 16780[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 200 213775[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 200 21163[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 200 22318[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 200 253881[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 200 5091[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 200 40174[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 200 14466[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/material-dashboard.js HTTP/1.1" 200 19482[0m
+[05/Jan/2025 11:21:16] [m"GET /static/demo/demo.js HTTP/1.1" 200 6529[0m
+[05/Jan/2025 11:21:16] [m"GET /static/img/cover.jpg HTTP/1.1" 200 346524[0m
+[05/Jan/2025 11:21:16] [m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 200 2183500[0m
+[05/Jan/2025 11:21:17] [m"GET /static/img/favicon.png HTTP/1.1" 200 2761[0m
+[05/Jan/2025 11:22:59] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 11:23:18] [m"GET / HTTP/1.1" 200 12175[0m
+[05/Jan/2025 11:33:51] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 11:37:36] [m"GET / HTTP/1.1" 200 12155[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/material-dashboard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:37] [36m"GET /static/img/cover.jpg HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:37:53] [m"GET / HTTP/1.1" 200 12440[0m
+[05/Jan/2025 11:38:09] [m"GET / HTTP/1.1" 200 12178[0m
+[05/Jan/2025 11:42:41] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 11:46:05] [m"GET / HTTP/1.1" 200 12153[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/js/material-dashboard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:05] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:06] [36m"GET /static/img/cover.jpg HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:46:07] [m"GET / HTTP/1.1" 200 12153[0m
+/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 05, 2025 - 11:46:33
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+/home/n0r/Documents/ImirimoYamaboko/carparking/app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 05, 2025 - 11:46:39
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+/home/n0r/Documents/ImirimoYamaboko/carparking/app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 05, 2025 - 11:46:42
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+/home/n0r/Documents/ImirimoYamaboko/carparking/app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 05, 2025 - 11:46:58
+Django version 5.1.1, using settings 'carparking.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+[05/Jan/2025 11:47:27] [m"GET / HTTP/1.1" 200 12131[0m
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py", line 10, in login
+    return render(request, 'login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+[05/Jan/2025 11:47:33] [35;1m"GET /login HTTP/1.1" 500 83313[0m
+[05/Jan/2025 11:48:56] [m"GET / HTTP/1.1" 200 12131[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/js/material-dashboard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:56] [36m"GET /static/img/cover.jpg HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:57] [36m"GET /static/img/favicon.png HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:48:57] [m"GET /login HTTP/1.1" 200 12150[0m
+[05/Jan/2025 11:49:23] [m"GET /login HTTP/1.1" 200 12150[0m
+[05/Jan/2025 11:52:09] [m"GET /login HTTP/1.1" 200 14840[0m
+[05/Jan/2025 11:52:11] [m"GET /login HTTP/1.1" 200 14840[0m
+[05/Jan/2025 11:52:26] [m"GET /login HTTP/1.1" 200 14840[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/bootstrap-tagsinput.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/jquery-jvectormap.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/nouislider.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/arrive.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/chartist.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/plugins/bootstrap-notify.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/js/material-dashboard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:26] [36m"GET /static/demo/demo.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:52:27] [36m"GET /static/img/cover.jpg HTTP/1.1" 304 0[0m
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py", line 10, in login
+    return render(request, 'login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 573, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 17: 'static'. Did you forget to register or load this tag?
+[05/Jan/2025 11:56:09] [35;1m"GET /login HTTP/1.1" 500 152833[0m
+Not Found: /favicon.ico
+[05/Jan/2025 11:56:09] [33m"GET /favicon.ico HTTP/1.1" 404 2710[0m
+Internal Server Error: /login
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/app/views.py", line 10, in login
+    return render(request, 'login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/n0r/Documents/ImirimoYamaboko/carparking/venv/lib/python3.12/site-packages/django/template/base.py", line 573, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 17: 'static'. Did you forget to register or load this tag?
+[05/Jan/2025 11:56:11] [35;1m"GET /login HTTP/1.1" 500 152833[0m
+[05/Jan/2025 11:56:37] [m"GET /login HTTP/1.1" 200 9520[0m
+[05/Jan/2025 11:56:37] [33m"GET /static/css/nucleo-svg.css HTTP/1.1" 404 1868[0m
+Not Found: /assets/css/material-dashboard.css
+[05/Jan/2025 11:56:37] [33m"GET /static/css/nucleo-icons.css HTTP/1.1" 404 1874[0m
+[05/Jan/2025 11:56:37] [33m"GET /assets/css/material-dashboard.css?v=3.2.0 HTTP/1.1" 404 2784[0m
+Not Found: /assets/js/core/popper.min.js
+Not Found: /assets/js/plugins/smooth-scrollbar.min.js
+Not Found: /assets/js/plugins/perfect-scrollbar.min.js
+[05/Jan/2025 11:56:37] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2761[0m
+Not Found: /assets/js/core/bootstrap.min.js
+[05/Jan/2025 11:56:37] [33m"GET /assets/js/plugins/smooth-scrollbar.min.js HTTP/1.1" 404 2800[0m
+[05/Jan/2025 11:56:37] [33m"GET /assets/js/plugins/perfect-scrollbar.min.js HTTP/1.1" 404 2803[0m
+Not Found: /assets/js/material-dashboard.min.js
+[05/Jan/2025 11:56:37] [33m"GET /assets/js/core/bootstrap.min.js HTTP/1.1" 404 2770[0m
+[05/Jan/2025 11:56:37] [33m"GET /assets/js/material-dashboard.min.js?v=3.2.0 HTTP/1.1" 404 2790[0m
+Not Found: /assets/css/material-dashboard.css
+[05/Jan/2025 11:56:38] [33m"GET /assets/css/material-dashboard.css?v=3.2.0 HTTP/1.1" 404 2784[0m
+[05/Jan/2025 11:57:11] [m"GET /login HTTP/1.1" 200 9510[0m
+[05/Jan/2025 11:57:11] [33m"GET /static/css/nucleo-icons.css HTTP/1.1" 404 1874[0m
+Not Found: /assets/js/core/bootstrap.min.js
+Not Found: /assets/js/plugins/smooth-scrollbar.min.js
+Not Found: /assets/js/core/popper.min.js
+[05/Jan/2025 11:57:11] [33m"GET /assets/js/core/bootstrap.min.js HTTP/1.1" 404 2770[0m
+Not Found: /assets/js/plugins/perfect-scrollbar.min.js
+[05/Jan/2025 11:57:11] [33m"GET /static/css/nucleo-svg.css HTTP/1.1" 404 1868[0m
+[05/Jan/2025 11:57:11] [33m"GET /assets/js/plugins/perfect-scrollbar.min.js HTTP/1.1" 404 2803[0m
+[05/Jan/2025 11:57:11] [33m"GET /assets/js/core/popper.min.js HTTP/1.1" 404 2761[0m
+[05/Jan/2025 11:57:11] [36m"GET /static/css/material-dashboard.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:57:11] [33m"GET /assets/js/plugins/smooth-scrollbar.min.js HTTP/1.1" 404 2800[0m
+Not Found: /assets/js/material-dashboard.min.js
+[05/Jan/2025 11:57:11] [33m"GET /assets/js/material-dashboard.min.js?v=3.2.0 HTTP/1.1" 404 2790[0m
+[05/Jan/2025 11:58:38] [m"GET /login HTTP/1.1" 200 9500[0m
+[05/Jan/2025 11:58:38] [33m"GET /static/js/plugins/smooth-scrollbar.min.js HTTP/1.1" 404 1916[0m
+[05/Jan/2025 11:58:38] [33m"GET /static/js/plugins/perfect-scrollbar.min.js HTTP/1.1" 404 1919[0m
+[05/Jan/2025 11:58:39] [33m"GET /static/css/nucleo-svg.css HTTP/1.1" 404 1868[0m
+[05/Jan/2025 11:58:39] [36m"GET /static/js/core/popper.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 11:58:39] [m"GET /static/js/material-dashboard.min.js?v=3.2.0 HTTP/1.1" 200 10479[0m
+[05/Jan/2025 11:58:39] [33m"GET /static/js/core/bootstrap.min.js HTTP/1.1" 404 1886[0m
+[05/Jan/2025 11:58:39] [33m"GET /static/css/nucleo-icons.css HTTP/1.1" 404 1874[0m
+[05/Jan/2025 11:58:41] [m"GET /login HTTP/1.1" 200 9500[0m
+[05/Jan/2025 11:58:41] [33m"GET /static/css/nucleo-icons.css HTTP/1.1" 404 1874[0m
+[05/Jan/2025 11:58:41] [33m"GET /static/css/nucleo-svg.css HTTP/1.1" 404 1868[0m
+[05/Jan/2025 11:58:41] [33m"GET /static/js/core/bootstrap.min.js HTTP/1.1" 404 1886[0m
+[05/Jan/2025 11:58:41] [33m"GET /static/js/plugins/perfect-scrollbar.min.js HTTP/1.1" 404 1919[0m
+[05/Jan/2025 11:58:41] [33m"GET /static/js/plugins/smooth-scrollbar.min.js HTTP/1.1" 404 1916[0m
+[05/Jan/2025 11:58:51] [m"GET /login HTTP/1.1" 200 9492[0m
+[05/Jan/2025 11:58:52] [33m"GET /static/css/nucleo-icons.css HTTP/1.1" 404 1874[0m
+[05/Jan/2025 11:58:52] [m"GET /static/js/material-dashboard.min.js HTTP/1.1" 200 10479[0m
+[05/Jan/2025 11:58:52] [33m"GET /static/js/plugins/smooth-scrollbar.min.js HTTP/1.1" 404 1916[0m
+[05/Jan/2025 11:58:52] [33m"GET /static/js/plugins/perfect-scrollbar.min.js HTTP/1.1" 404 1919[0m
+[05/Jan/2025 11:58:52] [33m"GET /static/css/nucleo-svg.css HTTP/1.1" 404 1868[0m
+[05/Jan/2025 11:58:52] [33m"GET /static/js/core/bootstrap.min.js HTTP/1.1" 404 1886[0m
+[05/Jan/2025 11:58:56] [33m"GET /static/css/nucleo-svg.css HTTP/1.1" 404 1868[0m
+[05/Jan/2025 11:58:56] [33m"GET /static/css/nucleo-icons.css HTTP/1.1" 404 1874[0m
+[05/Jan/2025 11:58:56] [33m"GET /static/js/_site_dashboard_free/assets/js/dashboard-free.js.map HTTP/1.1" 404 1979[0m
+[05/Jan/2025 11:58:57] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 12:00:49] [m"GET /login HTTP/1.1" 200 9492[0m
+[05/Jan/2025 12:00:50] [m"GET /static/css/nucleo-icons.css HTTP/1.1" 200 8821[0m
+[05/Jan/2025 12:00:50] [m"GET /static/css/nucleo-svg.css HTTP/1.1" 200 2253[0m
+[05/Jan/2025 12:00:50] [m"GET /static/js/plugins/smooth-scrollbar.min.js HTTP/1.1" 200 48421[0m
+[05/Jan/2025 12:00:50] [m"GET /static/js/core/bootstrap.min.js HTTP/1.1" 200 60635[0m
+[05/Jan/2025 12:00:50] [m"GET /static/js/plugins/perfect-scrollbar.min.js HTTP/1.1" 200 19411[0m
+[05/Jan/2025 12:00:50] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 12:00:50] [33m"GET /static/js/core/bootstrap.min.js.map HTTP/1.1" 404 1898[0m
+[05/Jan/2025 12:00:50] [33m"GET /static/js/_site_dashboard_free/assets/js/dashboard-free.js.map HTTP/1.1" 404 1979[0m
+[05/Jan/2025 12:00:52] [m"GET /login HTTP/1.1" 200 9492[0m
+[05/Jan/2025 12:00:52] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 12:00:52] [33m"GET /static/js/core/bootstrap.min.js.map HTTP/1.1" 404 1898[0m
+[05/Jan/2025 12:00:53] [33m"GET /static/js/_site_dashboard_free/assets/js/dashboard-free.js.map HTTP/1.1" 404 1979[0m
+[05/Jan/2025 12:00:55] [33m"GET /static/css/dashboard-free.css.map HTTP/1.1" 404 1892[0m
+[05/Jan/2025 12:00:57] [m"GET / HTTP/1.1" 200 12131[0m
+[05/Jan/2025 12:00:57] [36m"GET /static/demo/demo.css HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:57] [36m"GET /static/js/core/jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/core/bootstrap-material-design.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/moment.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/perfect-scrollbar.jquery.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/sweetalert2.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/jquery.validate.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/jquery.bootstrap-wizard.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/fullcalendar.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/jasny-bootstrap.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/jquery.dataTables.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/bootstrap-datetimepicker.min.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/plugins/bootstrap-selectpicker.js HTTP/1.1" 304 0[0m
+[05/Jan/2025 12:00:58] [36m"GET /static/js/
