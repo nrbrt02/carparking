@@ -1,0 +1,237 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+
+<script>
+  // Sidebar Toggle
+  document
+    .getElementById("sidebarToggle")
+    .addEventListener("click", function () {
+      document.getElementById("sidebar").classList.toggle("sidebar-collapsed");
+      document
+        .querySelector(".main-content")
+        .classList.toggle("sidebar-collapsed");
+    });
+
+  // Active Navigation
+  // document.querySelectorAll(".sidebar-link").forEach((link) => {
+  //   link.addEventListener("click", function (e) {
+  //     e.preventDefault();
+  //     document
+  //       .querySelectorAll(".sidebar-link")
+  //       .forEach((l) => l.classList.remove("active"));
+  //     this.classList.add("active");
+  //   });
+  // });
+
+  //   // Revenue Chart
+  //   const revenueCtx = document
+  //     .getElementById("revenueChart")
+  //     .getContext("2d");
+  //   const revenueChart = new Chart(revenueCtx, {
+  //     type: "line",
+  //     data: {
+  //       labels: [
+  //         "Jan",
+  //         "Feb",
+  //         "Mar",
+  //         "Apr",
+  //         "May",
+  //         "Jun",
+  //         "Jul",
+  //         "Aug",
+  //         "Sep",
+  //         "Oct",
+  //         "Nov",
+  //         "Dec",
+  //       ],
+  //       datasets: [
+  //         {
+  //           label: "Revenue 2024",
+  //           data: [
+  //             30000, 35000, 32000, 40000, 38000, 45000, 42000, 47000, 49000,
+  //             52000, 55000, 58000,
+  //           ],
+  //           borderColor: "#0d6efd",
+  //           backgroundColor: "rgba(13, 110, 253, 0.1)",
+  //           fill: true,
+  //           tension: 0.4,
+  //         },
+  //         {
+  //           label: "Revenue 2023",
+  //           data: [
+  //             25000, 29000, 28000, 35000, 32000, 38000, 37000, 40000, 42000,
+  //             45000, 48000, 50000,
+  //           ],
+  //           borderColor: "#6c757d",
+  //           borderDash: [5, 5],
+  //           tension: 0.4,
+  //         },
+  //       ],
+  //     },
+  //     options: {
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //       plugins: {
+  //         legend: {
+  //           position: "top",
+  //         },
+  //         tooltip: {
+  //           mode: "index",
+  //           intersect: false,
+  //           callbacks: {
+  //             label: function (context) {
+  //               let label = context.dataset.label || "";
+  //               if (label) {
+  //                 label += ": ";
+  //               }
+  //               if (context.parsed.y !== null) {
+  //                 label += new Intl.NumberFormat("en-US", {
+  //                   style: "currency",
+  //                   currency: "USD",
+  //                 }).format(context.parsed.y);
+  //               }
+  //               return label;
+  //             },
+  //           },
+  //         },
+  //       },
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           ticks: {
+  //             callback: function (value) {
+  //               return "$" + value.toLocaleString();
+  //             },
+  //           },
+  //         },
+  //       },
+  //       interaction: {
+  //         mode: "nearest",
+  //         axis: "x",
+  //         intersect: false,
+  //       },
+  //     },
+  //   });
+
+  //   // Traffic Sources Chart
+  //   const trafficCtx = document
+  //     .getElementById("trafficChart")
+  //     .getContext("2d");
+  //   new Chart(trafficCtx, {
+  //     type: "doughnut",
+  //     data: {
+  //       labels: ["Direct", "Social", "Referral", "Organic"],
+  //       datasets: [
+  //         {
+  //           data: [35, 30, 20, 15],
+  //           backgroundColor: ["#0d6efd", "#198754", "#ffc107", "#dc3545"],
+  //           borderWidth: 0,
+  //         },
+  //       ],
+  //     },
+  //     options: {
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //       plugins: {
+  //         legend: {
+  //           position: "bottom",
+  //         },
+  //         tooltip: {
+  //           callbacks: {
+  //             label: function (context) {
+  //               return context.label + ": " + context.parsed + "%";
+  //             },
+  //           },
+  //         },
+  //       },
+  //       cutout: "65%",
+  //     },
+  //   });
+
+  // Period Selection Buttons
+  document.querySelectorAll(".btn-group .btn").forEach((button) => {
+    button.addEventListener("click", function () {
+      this.parentElement.querySelectorAll(".btn").forEach((btn) => {
+        btn.classList.remove("btn-primary");
+        btn.classList.add("btn-outline-secondary");
+      });
+      this.classList.remove("btn-outline-secondary");
+      this.classList.add("btn-primary");
+    });
+  });
+
+  // Initialize DataTable with enhanced features
+  $(document).ready(function () {
+    $("#activityTable").DataTable({
+      pageLength: 5,
+      lengthMenu: [
+        [5, 10, 25, 50],
+        [5, 10, 25, 50],
+      ],
+      order: [[2, "desc"]], // Sort by time column by default
+      columnDefs: [
+        {
+          targets: -1,
+          orderable: false, // Disable sorting for actions column
+        },
+      ],
+      language: {
+        search: "",
+        searchPlaceholder: "Search records...",
+        paginate: {
+          previous: '<i class="fas fa-chevron-left"></i>',
+          next: '<i class="fas fa-chevron-right"></i>',
+        },
+      },
+      dom: '<"row"<"col-md-6"l><"col-md-6"f>>rtip',
+    });
+  });
+
+  // Notification System
+  document
+    .querySelector('.nav-link[data-bs-toggle="dropdown"]')
+    .addEventListener("click", function (e) {
+      const badge = document.querySelector(".notification-badge");
+      if (badge) {
+        setTimeout(() => {
+          badge.style.display = "none";
+        }, 2000);
+      }
+    });
+
+  // Welcome Alert Handler
+  document
+    .querySelector(".alert .btn-close")
+    .addEventListener("click", function () {
+      localStorage.setItem("welcomeDismissed", "true");
+    });
+
+  // Check Welcome Message Status
+  if (localStorage.getItem("welcomeDismissed")) {
+    document.querySelector(".alert").style.display = "none";
+  }
+
+  // Initialize all tooltips
+  var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+  // Add loading state to buttons
+  document.querySelectorAll(".btn").forEach((button) => {
+    button.addEventListener("click", function () {
+      if (!this.classList.contains("dropdown-toggle")) {
+        let originalContent = this.innerHTML;
+        this.innerHTML =
+          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+        setTimeout(() => {
+          this.innerHTML = originalContent;
+        }, 1000);
+      }
+    });
+  });
+</script>

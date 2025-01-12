@@ -42,13 +42,21 @@ PAYMENT_STATUS = [
 
 class User(AbstractUser):
     class Role(models.TextChoices):
-        MCOLLECTOR = "ATTENDANTS", "Attendants"
+        ATTENDANTS = "ATTENDANTS", "Attendants"
         ADMIN = "ADMIN", "Admin"
-    
-    # base_role = Role.ADMIN
+        CLIENT = "CLIENT", "Client"
 
-    role = models.CharField(max_length=50, choices=Role.choices)
-    phone_number = models.CharField(validators=[phone_regex], max_length=10, unique=True, null=True)
+    role = models.CharField(
+        max_length=50, 
+        choices=Role.choices, 
+        default=Role.CLIENT  # Set default role to CLIENT
+    )
+    phone_number = models.CharField(
+        validators=[phone_regex], 
+        max_length=10, 
+        unique=True, 
+        null=True
+    )
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -62,9 +70,10 @@ class User(AbstractUser):
         blank=True,
         help_text='Specific permissions for this user.'
     )
+
     def __str__(self):
         return f"{self.username} - {self.role}"
-
+        
 class Subscription(models.Model):
     name = models.CharField(max_length=255, unique=True)
     price = models.IntegerField()

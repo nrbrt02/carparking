@@ -1,0 +1,36 @@
+{% load static %}
+
+<div class="col-md-3 col-lg-2 d-md-block sidebar" id="sidebar">
+  <div class="position-sticky pt-3">
+    <div class="user-info d-flex align-items-center">
+      <img src="{% static 'img/pngwing.com.png' %}" alt="User" class="rounded-circle" />
+      <div>
+        <div class="fw-bold">Client</div>
+        <div class="fw-bold">{{ user.username }}</div>
+        <small>{{ user.email }}</small>
+      </div>
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="sidebar-link active" href="#" data-page="dashboard">
+          <i class="fas fa-home me-2"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link" href="#" data-page="users">
+          <i class="fas fa-users me-2"></i> Users
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link" href="#" data-page="analytics">
+          <i class="fas fa-chart-bar me-2"></i> Analytics
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link" href="#" data-page="settings">
+          <i class="fas fa-cog me-2"></i> Settings
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

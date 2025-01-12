@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid d-flex align-items-center">
+    <!-- Sidebar Toggle and Home Link -->
+    <div class="d-flex align-items-center">
+      <button class="btn btn-link" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="/" class="btn btn-link">
+        <i class="fas fa-house"></i>
+      </a>
+    </div>
+
+    <!-- Right-side User Dropdown -->
+    <div class="ms-auto d-flex align-items-center">
+      <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+          <i class="fas fa-user-circle"></i> {{ user.role }}
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li><a class="dropdown-item" href="{% url 'logoutuser' %}">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

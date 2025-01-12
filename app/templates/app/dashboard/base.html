@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    {% block title %}Dashboard - Car Parking Management System{% endblock %}
+  </title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css"
+    rel="stylesheet" />
+  <style>
+    .sidebar {
+      min-height: 100vh;
+      background: #212529;
+      transition: all 0.3s;
+    }
+
+    .sidebar-link {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+      transition: all 0.3s;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background: #343a40;
+      color: #fff;
+      border-left: 4px solid #0d6efd;
+    }
+
+    .sidebar-link.active {
+      background: #0d6efd;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .stat-card {
+      border-left: 4px solid;
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .chart-container {
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    #sidebarToggle {
+      cursor: pointer;
+    }
+
+    .sidebar-collapsed {
+      margin-left: -250px;
+    }
+
+    .user-info {
+      color: white;
+      padding: 15px;
+      border-bottom: 1px solid #343a40;
+      margin-bottom: 15px;
+    }
+
+    .user-info img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      {% if request.user.role == "ADMIN" %}
+      {% include '../dashboard/includes/admin-sidebar.html' %}
+      {% elif request.user.role == "ATTENDANTS" %}
+      {% include '../dashboard/includes/attendant-sidebar.html' %}
+      {% elif request.user.role == "CLIENT" %}
+      {% include '../dashboard/includes/client-sidebar.html' %}
+      {% else %}
+      <p>No sidebar available for your role.</p>
+      {% endif %}
+
+
+      <div class="col-md-9 col-lg-10 ms-sm-auto px-md-4">
+        <!-- Navbar -->
+
+        {% include '../dashboard/includes/nav.html' %}
+
+        <!-- End Navbar -->
+
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+  {% include '../dashboard/includes/footer.html' %}
+</body>
+
+</html>
