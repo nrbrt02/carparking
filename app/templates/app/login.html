@@ -45,13 +45,20 @@
               role="form"
               class="text-start"
             >
-              {% csrf_token %} {% if messages %}
-              <div class="alert alert-danger mt-3">
-                {% for message in messages %}
-                <p>{{ message }}</p>
-                {% endfor %}
-              </div>
-              {% endif %}
+              {% csrf_token %}
+              {% if messages %}
+        <div class="alert alert-dismissible" role="alert">
+            {% for message in messages %}
+            {% if "success" in message.tags %}
+            <div class="alert alert-success mt-3">{{ message }}</div>
+            {% elif "error" in message.tags %}
+            <div class="alert alert-danger">{{ message }}</div>
+            {% else %}
+            <div class="alert alert-info mt-3">{{ message }}</div> <!-- For other messages -->
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
 
               <div class="input-group input-group-outline my-3">
                 {{ form.username.label_tag }} {{ form.username }}

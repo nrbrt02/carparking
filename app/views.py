@@ -58,6 +58,47 @@ def loginuser(request):
 
     
 def signup(request):
+    if request.method == 'POST':
+        errors = {}  # Dictionary to hold error messages
+
+    if request.method == 'POST':
+        first_name = request.POST.get('firstname', '').strip()
+        last_name = request.POST.get('lastname', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        confirm_password = request.POST.get('confirm_password', '').strip()
+
+        # Validate fields
+        if not first_name:
+            errors['firstname'] = "First name is required."
+        if not last_name:
+            errors['lastname'] = "Last name is required."
+        if not email:
+            errors['email'] = "Email is required."
+        elif User.objects.filter(email=email).exists():
+            errors['email'] = "Email is already registered."
+        if not password:
+            errors['password'] = "Password is required."
+        if password != confirm_password:
+            errors['confirm_password'] = "Passwords do not match."
+
+        # If no errors, create the user
+        if not errors:
+            user = User.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                username=email,
+                is_active=True,
+            )
+            user.password = make_password(password)
+            user.save()
+
+            messages.success(request, "Account created successfully. You can now log in.")
+            return redirect('login')
+
+        # Pass errors back to the template
+        return render(request, 'signup.html', {'errors': errors})
     return render(request, 'signup.html')
 
 @login_required
@@ -250,3 +291,4 @@ def create_user(request):
         'form_data': form_data,
         'active_menu': 'uaccounts'
     })
+
