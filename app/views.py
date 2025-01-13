@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
-from .forms import LoginForm
-from .models import User
+from .forms import LoginForm, ParkingLotForm
+from .models import User, ParkingLot
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
@@ -292,3 +292,32 @@ def create_user(request):
         'active_menu': 'uaccounts'
     })
 
+
+@login_required
+@admin_required
+def parking(request):
+    parking_lots = ParkingLot.objects.all()
+
+    for lot in parking_lots:
+        # Use the restrictions field directly
+        if lot.restrictions:  # Check if restrictions exist
+            restrictions = lot.restrictions_list
+
+    return render(request, 'dashboard/parking.html', {'parking_lots': parking_lots})
+
+@login_required
+@admin_required
+def create_parking_lot(request):
+    if request.method == 'POST':
+        form = ParkingLotForm(request.POST)
+        if form.is_valid():
+            parking_lot = form.save(commit=False)
+            parking_lot.save()
+            messages.success(request, 'Parking lot created successfully.')
+            return redirect('parking')  # Redirect to a different view or the same page
+        else:
+            messages.error(request, 'There was an error with your submission. Please check the form.')
+    else:
+        form = ParkingLotForm()
+
+    return render(request, 'dashboard/create_parking_lot.html', {'form': form})

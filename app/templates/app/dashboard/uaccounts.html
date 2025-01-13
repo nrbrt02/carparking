@@ -15,21 +15,6 @@
         <h2>All User Accounts</h2>
         <a href="{% url 'create_user' %}" class="btn btn-primary">Add User</a> <!-- Link to Add User page -->
     </div>
-    <div class="col-12">
-        {% if messages %}
-        <div class="alert alert-dismissible fade show" role="alert">
-            {% for message in messages %}
-            {% if "success" in message.tags %}
-            <div class="alert alert-success">{{ message }}</div>
-            {% elif "error" in message.tags %}
-            <div class="alert alert-danger">{{ message }}</div>
-            {% else %}
-            <div class="alert alert-info">{{ message }}</div> <!-- For other messages -->
-            {% endif %}
-            {% endfor %}
-        </div>
-        {% endif %}
-    </div>
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Recent Activity</h5>

@@ -89,19 +89,25 @@ class ParkingLot(models.Model):
     name = models.CharField(max_length=255, unique=True)
     gpsLocation = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-    type = models.CharField(max_length=20, choices=PARKING_TYPE, default='ON STREET')
+    type = models.CharField(max_length=20, choices=[('ON STREET', 'On Street'), ('OFF STREET', 'Off Street')], default='ON STREET')
     capacity = models.IntegerField()
-    restrictions = models.CharField(max_length=50, choices=RESTRICTION_CHOICES, default='NO RESTRICTION')
+    restrictions = models.CharField(max_length=255, blank=True, null=True)  # Store as a comma-separated string
     security = models.BooleanField(default=False)
     lighting = models.BooleanField(default=False)
     chargingStation = models.BooleanField(default=False)
     manager_1 = models.ForeignKey('User', related_name='primary_manager', null=True, on_delete=models.SET_NULL)
-    manager_2 = models.ForeignKey('User', related_name='secondary_manager', on_delete=models.SET_NULL, null=True, blank=True)
+    manager_2 = models.ForeignKey('User', related_name='secondary_manager', null=True, blank=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} - {self.address} - {self.manager_1}"
+        return f"{self.name} - {self.address}"
 
+    @property
+    def restrictions_list(self):
+        """Return a clean list of restrictions."""
+        if not self.restrictions:
+            return []
+        return [restriction.strip() for restriction in self.restrictions.split(',') if restriction.strip()]
 class ParkingSpace(models.Model):
     parking_lot = models.ForeignKey('ParkingLot', on_delete=models.CASCADE, related_name='parking_spaces')
     subscription = models.ForeignKey('Subscription', on_delete=models.SET_NULL, null=True, blank=True)

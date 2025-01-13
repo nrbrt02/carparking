@@ -1,0 +1,76 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Dashboard - Car Parking System{% endblock %}
+
+<!-- Sidebar -->
+
+
+<!-- Main Content -->
+<!-- Top Navbar -->
+
+
+<!-- Dashboard Content -->
+{% block content %}
+<div class="content">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>All Manage Parking</h2>
+        <a href="{% url 'create_parking_lot' %}" class="btn btn-primary">Add New</a>
+    </div>
+  <!-- Recent Activity Table -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Recent Activity</h5>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>GPS Location</th>
+              <th>Address</th>
+              <th>Type</th>
+              <th>Capacity</th>
+              <th>Restrictions</th>
+              <th>Security</th>
+              <th>Lighting</th>
+              <th>Charging Station</th>
+              <th>Manager 1</th>
+              <th>Manager 2</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for parking_lot in parking_lots %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ parking_lot.name }}</td>
+              <td>{{ parking_lot.gpsLocation }}</td>
+              <td>{{ parking_lot.address }}</td>
+              <td>{{ parking_lot.type }}</td>
+              <td>{{ parking_lot.capacity }}</td>
+              <td>
+                {% for restriction in parking_lot.restrictions_list %}
+                  <span class="badge bg-secondary">{{ restriction }}</span>
+                {% empty %}
+                  <span class="text-muted">No restrictions</span>
+                {% endfor %}
+              </td>
+              
+              <td>{{ parking_lot.security|yesno:"Yes,No" }}</td>
+              <td>{{ parking_lot.lighting|yesno:"Yes,No" }}</td>
+              <td>{{ parking_lot.chargingStation|yesno:"Yes,No" }}</td>
+              <td>{{ parking_lot.manager_1.username }}</td>
+              <td>{{ parking_lot.manager_2.username|default:"None" }}</td>
+              <td>{{ parking_lot.created_at }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        
+        
+      </div>
+    </div>
+  </div>
+{% endblock %}
+</body>
+
+</html>

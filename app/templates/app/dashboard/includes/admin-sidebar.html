@@ -16,15 +16,16 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="sidebar-link {% if active_menu == 'parking' %}active{% endif %}" href="{% url 'parking' %}" data-page="analytics">
+          <i class="fas fa-chart-bar me-2"></i> Parking Lots
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="sidebar-link {% if active_menu == 'uaccounts' %}active{% endif %}" href="{% url 'uaccounts' %}" data-page="users">
           <i class="fas fa-users me-2"></i> Accounts
         </a>
       </li>
-      <li class="nav-item">
-        <a class="sidebar-link {% if active_menu == 'analytics' %}active{% endif %}" href="#" data-page="analytics">
-          <i class="fas fa-chart-bar me-2"></i> Analytics
-        </a>
-      </li>
+     
       <li class="nav-item">
         <a class="sidebar-link {% if active_menu == 'settings' %}active{% endif %}" href="#" data-page="settings">
           <i class="fas fa-cog me-2"></i> Settings

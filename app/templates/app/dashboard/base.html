@@ -100,8 +100,24 @@
         {% include '../dashboard/includes/nav.html' %}
 
         <!-- End Navbar -->
-
+<div class="col-12">
+                  {% if messages %}
+                  <div class="alert alert-dismissible fade show" role="alert">
+                      {% for message in messages %}
+                      {% if "success" in message.tags %}
+                      <div class="alert alert-success">{{ message }}</div>
+                      {% elif "error" in message.tags %}
+                      <div class="alert alert-danger">{{ message }}</div>
+                      {% else %}
+                      <div class="alert alert-info">{{ message }}</div> <!-- For other messages -->
+                      {% endif %}
+                      {% endfor %}
+                  </div>
+                  {% endif %}
+              </div>
         {% block content %}
+                <!-- Display Messages -->
+                
         <!-- Page-specific content goes here -->
         {% endblock %}
       </div>
