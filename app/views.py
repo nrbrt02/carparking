@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
-from .forms import LoginForm, ParkingLotForm
-from .models import User, ParkingLot
+from .forms import LoginForm, ParkingLotForm, SubscriptionForm
+from .models import User, ParkingLot, Subscription
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
@@ -303,7 +303,7 @@ def parking(request):
         if lot.restrictions:  # Check if restrictions exist
             restrictions = lot.restrictions_list
 
-    return render(request, 'dashboard/parking.html', {'parking_lots': parking_lots})
+    return render(request, 'dashboard/parking.html', {'parking_lots': parking_lots, 'active_menu': 'parking'})
 
 @login_required
 @admin_required
@@ -341,7 +341,7 @@ def update_parking_lot(request, pk):
         # Prepopulate the form with instance data
         form = ParkingLotForm(instance=parking_lot)
 
-    return render(request, 'dashboard/update_parking_lot.html', {'form': form, 'parking_lot': parking_lot})
+    return render(request, 'dashboard/update_parking_lot.html', {'form': form, 'parking_lot': parking_lot, 'active_menu': 'parking'})
 
 
 @login_required
@@ -352,4 +352,69 @@ def delete_parking_lot(request, pk):
         parking_lot.delete()
         messages.success(request, "Parking lot deleted successfully.")
         return redirect("parking")  # Update with your list view URL name
-    return render(request, "dashboard/delete_parking_lot.html", {"parking_lot": parking_lot})
+    return render(request, "dashboard/delete_parking_lot.html", {"parking_lot": parking_lot, 'active_menu': 'parking'})
+
+
+@login_required
+@admin_required
+def subscriptions(request):
+    sublist = Subscription.objects.all()
+    context={
+        'subscriptions': sublist,
+        'active_menu': 'subscriptions'
+    }
+    return render(request, "dashboard/subscriptions.html", context)
+
+
+@login_required
+@admin_required
+def create_subscription(request):
+    if request.method == "POST":
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Subscription created successfully!")
+            return redirect("subscriptions")
+    else:
+        form = SubscriptionForm()
+    
+    return render(request, "dashboard/create_subscription.html", {"form": form, 'active_menu': 'subscriptions'})
+
+
+@login_required
+@admin_required
+def update_subscription(request, subscription_id):
+    subscription = get_object_or_404(Subscription, id=subscription_id)
+    if request.method == "POST":
+        form = SubscriptionForm(request.POST, instance=subscription)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Subscription updated successfully!")
+            return redirect("subscriptions")
+    else:
+        form = SubscriptionForm(instance=subscription)
+
+    context = {
+        "form": form,
+        "subscription": subscription,
+        'active_menu': 'subscriptions',
+    }
+    return render(request, "dashboard/update_subscription.html", context)
+
+
+@login_required
+@admin_required
+def subscription_view(request, pk):
+    subscription = get_object_or_404(Subscription, pk=pk)
+    
+    # Handle deletion
+    if request.method == "POST":
+        if "delete" in request.POST:  # Check if the delete button was clicked
+            subscription.delete()
+            messages.success(request, "Subscription deleted successfully!")
+            return redirect('subscriptions')
+
+    return render(request, 'dashboard/view_sub.html', {
+        'subscription': subscription,
+        'active_menu': 'subscriptions'
+    })

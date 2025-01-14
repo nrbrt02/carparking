@@ -1,5 +1,5 @@
 from django import forms
-from .models import ParkingLot, User
+from .models import ParkingLot, User, Subscription
 
 
 class LoginForm(forms.Form):
@@ -60,3 +60,19 @@ class ParkingLotForm(forms.ModelForm):
         self.fields['manager_1'].queryset = attendants.exclude(id__in=assigned_managers)
         self.fields['manager_2'].queryset = attendants.exclude(id__in=assigned_managers)
 
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['name', 'price', 'discount_rate', 'terms']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter subscription name'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter price in RWF'}),
+            'discount_rate': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter discount rate (%)'}),
+            'terms': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Enter subscription terms'}),
+        }
+        labels = {
+            'name': 'Subscription Name',
+            'price': 'Price (RWF)',
+            'discount_rate': 'Discount Rate (%)',
+            'terms': 'Terms and Conditions',
+        }

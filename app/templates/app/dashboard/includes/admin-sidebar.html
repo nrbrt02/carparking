@@ -21,6 +21,16 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="sidebar-link {% if active_menu == 'subscriptions' %}active{% endif %}" href="{% url 'subscriptions' %}" data-page="analytics">
+          <i class="fas fa-dollar me-2"></i> Subscriptions
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link {% if active_menu == 'parking' %}active{% endif %}" href="{% url 'parking' %}" data-page="analytics">
+          <i class="fas fa-location-dot me-2"></i> Parking Spaces
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="sidebar-link {% if active_menu == 'uaccounts' %}active{% endif %}" href="{% url 'uaccounts' %}" data-page="users">
           <i class="fas fa-users me-2"></i> Accounts
         </a>

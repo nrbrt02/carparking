@@ -19,5 +19,11 @@ urlpatterns = [
     path('dashboard/parking/update/<int:pk>/', views.update_parking_lot, name='update_parking_lot'),
     path("dashboard/parking-lot/<int:pk>/delete/", views.delete_parking_lot, name="delete_parking_lot"),
 
+    path('dashboard/subscriptions', views.subscriptions, name="subscriptions"),
+    path("dashboard/subscriptions/create/", views.create_subscription, name="create_subscription"),
+    path('dashboard/subscriptions/update/<int:subscription_id>/', views.update_subscription, name='update_subscription'),
+    path('dashboard/subscription/<int:pk>/', views.subscription_view, name='subscription_view'),
+
+
 
 ]
