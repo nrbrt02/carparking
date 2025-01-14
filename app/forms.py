@@ -35,21 +35,28 @@ class ParkingLotForm(forms.ModelForm):
             'manager_2': forms.Select(attrs={'class': 'form-select'}),
         }
 
-    def clean_restrictions(self):
-        restrictions = self.cleaned_data.get('restrictions', [])
-        # if not restrictions:
-        #     return ''  
-        return ','.join(restrictions)  # Properly join selected restrictions into a string
-
     def __init__(self, *args, **kwargs):
         super(ParkingLotForm, self).__init__(*args, **kwargs)
-        # Filter managers based on the ATTENDANT role
+        # Set the available restrictions
+        self.fields['restrictions'].choices = [
+            ('NO RESTRICTION', 'No Restriction'),
+            ('HEIGHT LIMIT', 'Height Limit'),
+            ('WEIGHT LIMIT', 'Weight Limit'),
+            ('HANDICAPPED ONLY', 'Handicapped Only'),
+        ]
+        
+        # Set the initial selected restrictions for update
+        instance = kwargs.get('instance')
+        if instance and instance.restrictions:
+            self.initial['restrictions'] = instance.restrictions.split(',')
+
+        # Filter managers for manager_1 and manager_2 fields
         attendants = User.objects.filter(role='ATTENDANTS')
-
-        # Exclude users already assigned as managers
-        assigned_managers = ParkingLot.objects.values_list('manager_1', 'manager_2')
+        if instance:
+            current_managers = [instance.manager_1, instance.manager_2]
+            attendants = attendants | User.objects.filter(id__in=[m.id for m in current_managers if m])
+        assigned_managers = ParkingLot.objects.exclude(id=instance.id if instance else None).values_list('manager_1', 'manager_2')
         assigned_managers = [manager for sublist in assigned_managers for manager in sublist if manager]
-
         self.fields['manager_1'].queryset = attendants.exclude(id__in=assigned_managers)
         self.fields['manager_2'].queryset = attendants.exclude(id__in=assigned_managers)
 

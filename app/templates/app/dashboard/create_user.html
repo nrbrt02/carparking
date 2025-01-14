@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="content">
-    <h3>Create Account</h3>
+    <h3><i class="fas fa-circle-plus"></i> Create Account</h3>
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
@@ -73,7 +73,7 @@
             {% endif %}
         </div>
 <br>
-        <button type="submit" class="btn btn-primary">Create Account</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-circle-plus"></i> Create Account</button>
     </form>
 </div>
 {% endblock %}

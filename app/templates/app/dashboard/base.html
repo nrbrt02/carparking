@@ -105,11 +105,11 @@
                   <div class="alert alert-dismissible fade show" role="alert">
                       {% for message in messages %}
                       {% if "success" in message.tags %}
-                      <div class="alert alert-success">{{ message }}</div>
+                      <div class="alert alert-success"><i class="fas fa-check-circle"></i> {{ message }}</div>
                       {% elif "error" in message.tags %}
-                      <div class="alert alert-danger">{{ message }}</div>
+                      <div class="alert alert-danger"><i class="fas fa-x-circle"></i>{{ message }}</div>
                       {% else %}
-                      <div class="alert alert-info">{{ message }}</div> <!-- For other messages -->
+                      <div class="alert alert-info"><i class="fas fa-info"></i>{{ message }}</div> <!-- For other messages -->
                       {% endif %}
                       {% endfor %}
                   </div>

@@ -1,11 +1,11 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 
-{% block title %}Create Account - Car Parking System{% endblock %}
+{% block title %}Create Parking - Car Parking System{% endblock %}
 
 {% block content %}
 <div class="content">
-    <h3>Create a Parking Lot</h3>
+    <h3><i class="fas fa-circle-plus"></i> Create a Parking Lot</h3>
 
     <form method="POST" action="">
       {% csrf_token %}
@@ -99,6 +99,7 @@
           {% endif %}
       </div>
   
+      
       <div class="mb-3 form-check">
           <input type="checkbox" id="security" name="security" class="form-check-input">
           <label class="form-check-label" for="security">Security</label>
@@ -138,7 +139,7 @@
           {% endif %}
       </div>
   
-      <button type="submit" class="btn btn-primary">Create Parking Lot</button>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-circle-plus"></i> Create Parking Lot</button>
   </form>
   
         

@@ -108,6 +108,7 @@ class ParkingLot(models.Model):
         if not self.restrictions:
             return []
         return [restriction.strip() for restriction in self.restrictions.split(',') if restriction.strip()]
+        
 class ParkingSpace(models.Model):
     parking_lot = models.ForeignKey('ParkingLot', on_delete=models.CASCADE, related_name='parking_spaces')
     subscription = models.ForeignKey('Subscription', on_delete=models.SET_NULL, null=True, blank=True)

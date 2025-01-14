@@ -321,3 +321,35 @@ def create_parking_lot(request):
         form = ParkingLotForm()
 
     return render(request, 'dashboard/create_parking_lot.html', {'form': form})
+
+
+@login_required
+@admin_required
+def update_parking_lot(request, pk):
+    parking_lot = get_object_or_404(ParkingLot, pk=pk)
+
+    if request.method == 'POST':
+        form = ParkingLotForm(request.POST, instance=parking_lot)
+        if form.is_valid():
+            parking_lot = form.save(commit=False)
+            parking_lot.save()
+            messages.success(request, 'Parking lot updated successfully.')
+            return redirect('parking')  # Redirect to the list or detail view
+        else:
+            messages.error(request, 'There was an error with your submission. Please check the form.')
+    else:
+        # Prepopulate the form with instance data
+        form = ParkingLotForm(instance=parking_lot)
+
+    return render(request, 'dashboard/update_parking_lot.html', {'form': form, 'parking_lot': parking_lot})
+
+
+@login_required
+@admin_required
+def delete_parking_lot(request, pk):
+    parking_lot = get_object_or_404(ParkingLot, pk=pk)
+    if request.method == "POST":
+        parking_lot.delete()
+        messages.success(request, "Parking lot deleted successfully.")
+        return redirect("parking")  # Update with your list view URL name
+    return render(request, "dashboard/delete_parking_lot.html", {"parking_lot": parking_lot})

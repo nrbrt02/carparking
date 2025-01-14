@@ -1,0 +1,146 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Create Account - Car Parking System{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h3>Update a Parking Lot</h3>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        
+        <!-- Display success or error messages -->
+        {% if messages %}
+            <div class="alert alert-success" role="alert">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" name="name" value="{{ form.name.value }}" class="form-control" placeholder="Enter parking lot name">
+            {% if form.name.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="gpsLocation" class="form-label">GPS Location</label>
+            <input type="text" id="gpsLocation" name="gpsLocation" value="{{ form.gpsLocation.value }}" class="form-control" placeholder="Enter GPS location">
+            {% if form.gpsLocation.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.gpsLocation.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" id="address" name="address" value="{{ form.address.value }}" class="form-control" placeholder="Enter address">
+            {% if form.address.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.address.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="type" class="form-label">Type</label>
+            <select id="type" name="type" class="form-select">
+                <option value="ON STREET" {% if form.type.value == "ON STREET" %}selected{% endif %}>On Street</option>
+                <option value="OFF STREET" {% if form.type.value == "OFF STREET" %}selected{% endif %}>Off Street</option>
+            </select>
+            {% if form.type.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.type.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity</label>
+            <input type="number" id="capacity" name="capacity" value="{{ form.capacity.value }}" class="form-control" placeholder="Enter capacity">
+            {% if form.capacity.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.capacity.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="restrictions" class="form-label">Restrictions</label>
+            <select id="restrictions" name="restrictions" class="form-select" multiple aria-label="Multiple select example">
+                <option value="NO RESTRICTION" {% if "NO RESTRICTION" in form.restrictions.value %}selected{% endif %}>No Restriction</option>
+                <option value="HEIGHT LIMIT" {% if "HEIGHT LIMIT" in form.restrictions.value %}selected{% endif %}>Height Limit</option>
+                <option value="WEIGHT LIMIT" {% if "WEIGHT LIMIT" in form.restrictions.value %}selected{% endif %}>Weight Limit</option>
+                <option value="HANDICAPPED ONLY" {% if "HANDICAPPED ONLY" in form.restrictions.value %}selected{% endif %}>Handicapped Only</option>
+            </select>
+            {% if form.restrictions.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.restrictions.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3 form-check">
+            <input type="checkbox" id="security" name="security" class="form-check-input" {% if form.security.value %}checked{% endif %}>
+            <label class="form-check-label" for="security">Security</label>
+        </div>
+    
+        <div class="mb-3 form-check">
+            <input type="checkbox" id="lighting" name="lighting" class="form-check-input" {% if form.lighting.value %}checked{% endif %}>
+            <label class="form-check-label" for="lighting">Lighting</label>
+        </div>
+    
+        <div class="mb-3 form-check">
+            <input type="checkbox" id="chargingStation" name="chargingStation" class="form-check-input" {% if form.chargingStation.value %}checked{% endif %}>
+            <label class="form-check-label" for="chargingStation">Charging Station</label>
+        </div>
+    
+        <div class="mb-3">
+            <label for="id_manager_1" class="form-label">Manager 1</label>
+            {{ form.manager_1 }}
+            {% if form.manager_1.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.manager_1.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div class="mb-3">
+            <label for="id_manager_2" class="form-label">Manager 2</label>
+            {{ form.manager_2 }}
+            {% if form.manager_2.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.manager_2.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <button type="submit" class="btn btn-primary">Update Parking Lot</button>
+    </form>
+    
+        
+</div>
+{% endblock %}
