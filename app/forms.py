@@ -1,5 +1,5 @@
 from django import forms
-from .models import ParkingLot, User, Subscription
+from .models import ParkingLot, User, Subscription, ParkingSpace
 
 
 class LoginForm(forms.Form):
@@ -75,4 +75,32 @@ class SubscriptionForm(forms.ModelForm):
             'price': 'Price (RWF)',
             'discount_rate': 'Discount Rate (%)',
             'terms': 'Terms and Conditions',
+        }
+
+class ParkingSpaceForm(forms.ModelForm):
+    class Meta:
+        model = ParkingSpace
+        fields = ['parking_lot', 'subscription', 'type', 'status']  # Removed space_code
+        widgets = {
+            'type': forms.Select(attrs={'class': 'form-select'}),
+            'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ParkingSpaceForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if field.widget.attrs.get('class') != 'form-check-input':
+                field.widget.attrs['class'] = 'form-control'
+
+
+class ParkingSpaceFormUpdate(forms.ModelForm):
+    class Meta:
+        model = ParkingSpace
+        fields = ['parking_lot', 'subscription', 'space_code', 'type', 'status']
+        widgets = {
+            'parking_lot': forms.Select(attrs={'class': 'form-select'}),
+            'subscription': forms.Select(attrs={'class': 'form-select'}),
+            'space_code': forms.TextInput(attrs={'class': 'form-control'}),
+            'type': forms.Select(attrs={'class': 'form-select'}),
+            'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }

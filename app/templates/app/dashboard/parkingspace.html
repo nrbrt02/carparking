@@ -11,53 +11,46 @@
 <!-- Dashboard Content -->
 {% block content %}
 <div class="content">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2><i class="fas fa-list"></i> All Parking Spaces</h2>
-        <a href="{% url 'create_user' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a> <!-- Link to Add User page -->
-    </div>
+
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Manage All</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title"><i class="fas fa-list"></i> Manage All Parking Spaces</h5>
+        <a href="{% url 'create_parking_space' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a> <!-- Link to Add User page -->
+    </div>
+<br>
             <div class="table-responsive">
                 <table class="table table-hover" id="activityTable">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Username</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>E-mail</th>
-                            <th>Phone</th>
-                            <th>Role</th>
-                            <th>Is active</th>
+                            <th>Parking Lot</th>
+                            <th>Subscription</th>
+                            <th>Space Code</th>
+                            <th>Type</th>
+                            <th>Occupaide</th>
+                            <th>Created</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for user in users %}
+                        {% for parkspace in parkingspaces %}
                         <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.username }}</td>
-                            <td>{{ user.first_name }}</td>
-                            <td>{{ user.last_name }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.phone_number|default:"N/A" }}</td>
-                            <td>{{ user.role|default:"N/A" }}</td>
+                            <td>{{ parkspace.id }}</td>
+                            <td>{{ parkspace.parking_lot }}</td>
+                            <td>{{ parkspace.subscription }}</td>
+                            <td>{{ parkspace.space_code }}</td>
+                            <td>{{ parkspace.type}}</td>
+                            <td>{{ parkspace.status}}</td>
+                            <td>{{ parkspace.created_at}}</td>
                             <td>
-                                {% if user.is_active %}
-                                <span class="badge bg-success">Active</span>
-                                {% else %}
-                                <span class="badge bg-danger">Inactive</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <!-- You can add edit or delete buttons here if needed -->
-                                <a href="{% url 'edit_user' user.id %}"><i class="fas fa-pencil text-info"></i></a>
+                                <a href="{% url 'update_parking_space' parkspace.pk %}"><i class="fas fa-pencil text-info"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="{% url 'delete_parking_space' parkspace.pk %}"><i class="fas fa-trash text-danger"></i></a>
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="9" class="text-center">No users found</td>
+                            <td colspan="9" class="text-center">No Parking Space found</td>
                         </tr>
                         {% endfor %}
                     </tbody>

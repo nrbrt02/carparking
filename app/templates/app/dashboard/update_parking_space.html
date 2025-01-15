@@ -1,0 +1,54 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Update Parking Space{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+            <h3><i class="fas fa-circle-plus"></i> Update a Parking Space</h3>
+            
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="subscription" class="form-label">Parking Lot</label>
+                    {{ form.parking_lot }}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="subscription" class="form-label">Subscription</label>
+                    {{ form.subscription }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_space_code" class="form-label">Space Code</label>
+                    {{ form.space_code }}
+                </div>
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    {{ form.type }}
+                </div>
+                <div class="mb-3 form-check">
+                    {{ form.status }}
+                    <label for="status" class="form-check-label">Status</label>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-circle-plus"></i> Create Parking Space</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const parkingLotSelect = document.getElementById("id_parking_lot");
+        const capacityInfo = document.getElementById("capacity-info");
+
+        parkingLotSelect.addEventListener("change", function () {
+            const selectedOption = parkingLotSelect.options[parkingLotSelect.selectedIndex];
+            const capacity = selectedOption.getAttribute("data-capacity");
+            capacityInfo.innerText = capacity
+                ? `Selected parking lot maximum capacity: ${capacity}`
+                : "Selected parking lot capacity: N/A";
+        });
+    });
+</script>
+{% endblock %}

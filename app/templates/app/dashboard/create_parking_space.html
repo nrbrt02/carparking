@@ -1,0 +1,60 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Create Parking Space{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+            <h3><i class="fas fa-circle-plus"></i> Create a Parking Space</h3>
+            
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_parking_lot" class="form-label">Parking Lot</label>
+                    <select id="id_parking_lot" name="parking_lot" class="form-select">
+                        <option value="" data-capacity="0" selected>----------</option>
+                        {% for lot in parking_lots %}
+                            <option value="{{ lot.id }}" data-capacity="{{ lot.capacity }}">
+                                {{ lot.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <small id="capacity-info" class="form-text text-muted">
+                        Selected parking lot capacity: N/A
+                    </small>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="subscription" class="form-label">Subscription</label>
+                    {{ form.subscription }}
+                </div>
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    {{ form.type }}
+                </div>
+                <div class="mb-3 form-check">
+                    {{ form.status }}
+                    <label for="status" class="form-check-label">Status</label>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-circle-plus"></i> Create Parking Space</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const parkingLotSelect = document.getElementById("id_parking_lot");
+        const capacityInfo = document.getElementById("capacity-info");
+
+        parkingLotSelect.addEventListener("change", function () {
+            const selectedOption = parkingLotSelect.options[parkingLotSelect.selectedIndex];
+            const capacity = selectedOption.getAttribute("data-capacity");
+            capacityInfo.innerText = capacity
+                ? `Selected parking lot maximum capacity: ${capacity}`
+                : "Selected parking lot capacity: N/A";
+        });
+    });
+</script>
+{% endblock %}

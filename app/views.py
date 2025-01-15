@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
-from .forms import LoginForm, ParkingLotForm, SubscriptionForm
-from .models import User, ParkingLot, Subscription
+from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate
+from .models import User, ParkingLot, Subscription, ParkingSpace
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
-
+import random
 
 
 def home(request):
@@ -417,4 +417,100 @@ def subscription_view(request, pk):
     return render(request, 'dashboard/view_sub.html', {
         'subscription': subscription,
         'active_menu': 'subscriptions'
+    })
+
+
+def parkingspace(request):
+    parkingspace = ParkingSpace.objects.all()
+    context = {'parkingspaces': parkingspace, 'active_menu': 'parkingspace'}
+    return render(request, 'dashboard/parkingspace.html', context)
+
+@login_required
+@admin_required
+def create_parking_space(request):
+    if request.method == 'POST':
+        form = ParkingSpaceForm(request.POST)
+        if form.is_valid():
+            parking_space = form.save(commit=False)
+            parking_lot = parking_space.parking_lot
+            
+            # Check if the parking lot has reached its capacity
+            current_spaces = parking_lot.parking_spaces.count()
+            if current_spaces >= parking_lot.capacity:
+                messages.error(
+                    request, 
+                    f"Cannot create more parking spaces. The parking lot '{parking_lot.name}' has reached its maximum capacity of {parking_lot.capacity}."
+                )
+                return redirect('create_parking_space')  # Replace with your URL name
+            
+            # Generate space_code
+            subscription = parking_space.subscription
+            space_code = f"{parking_lot.name[0].upper()}{subscription.name[0].upper() if subscription else 'X'}{random.randint(10, 99)}"
+            parking_space.space_code = space_code
+            
+            parking_space.save()
+            messages.success(request, 'Parking space created successfully!')
+            return redirect('parkingspace')
+    else:
+        form = ParkingSpaceForm()
+        parking_lots = ParkingLot.objects.all()
+
+    return render(request, 'dashboard/create_parking_space.html', {'form': form, 'parking_lots': parking_lots, 'active_menu': 'parking_spaces'})
+
+
+@login_required
+@admin_required
+def update_parking_space(request, pk):
+    parking_space = get_object_or_404(ParkingSpace, pk=pk)
+    parking_lots = ParkingLot.objects.all()
+
+    if request.method == 'POST':
+        form = ParkingSpaceFormUpdate(request.POST, instance=parking_space)
+        if form.is_valid():
+            updated_parking_lot = form.cleaned_data['parking_lot']
+            original_parking_lot = parking_space.parking_lot
+
+            # Compare the submitted and original parking lot
+            # if updated_parking_lot.id != original_parking_lot.id:
+            current_spaces_count = updated_parking_lot.parking_spaces.count()
+            if current_spaces_count >= updated_parking_lot.capacity +1:
+                messages.error(
+                    request,
+                    f"Cannot assign this parking space to '{updated_parking_lot.name}'. "
+                    f"The parking lot has reached its maximum capacity of {updated_parking_lot.capacity}."
+                )
+                return render(
+                    request,
+                    'dashboard/update_parking_space.html',
+                    {'form': form, 'parking_lots': parking_lots, 'active_menu': 'parking_spaces'}
+                )
+
+            form.save()
+            messages.success(request, "Parking space updated successfully!")
+            return redirect('parkingspace')
+    else:
+        form = ParkingSpaceFormUpdate(instance=parking_space)
+
+    return render(
+        request,
+        'dashboard/update_parking_space.html',
+        {'form': form, 'parking_lots': parking_lots, 'active_menu': 'parking_spaces'}
+    )
+
+
+@login_required
+@admin_required
+def delete_parking_space(request, pk):
+    parking_space = get_object_or_404(ParkingSpace, pk=pk)
+    
+    # Handle deletion
+    if request.method == "POST":
+        if "delete" in request.POST:  # Check if the delete button was clicked
+            parking_space.delete()
+            messages.success(request, "Parking space deleted successfully!")
+            return redirect('parkingspace')
+
+    return render(request, 'dashboard/view_parking_space.html', {
+        'parking_space': parking_space,
+        'active_menu': 'parking_spaces'
     })
