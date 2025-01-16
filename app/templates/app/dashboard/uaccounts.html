@@ -53,6 +53,9 @@
                             <td>
                                 <!-- You can add edit or delete buttons here if needed -->
                                 <a href="{% url 'edit_user' user.id %}"><i class="fas fa-pencil text-info"></i></a>
+                                {% if user.role == 'ATTENDANTS' %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'view_userA' user.id %}"><i class="fas fa-eye text-primary"></i></a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% empty %}

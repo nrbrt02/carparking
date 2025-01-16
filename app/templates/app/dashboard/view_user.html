@@ -1,0 +1,218 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}User - Car Parking System{% endblock %}
+{% load humanize %}
+
+<!-- Sidebar -->
+
+
+<!-- Main Content -->
+<!-- Top Navbar -->
+
+
+<!-- Dashboard Content -->
+{% block content %}
+<div class="content">
+    <div class="card">
+       <div class="card-body">
+        <h5 class="card-title">Attendant: {{ user.get_full_name }}</h5>
+        {% for parking_lot in assigned_parking_lots %}
+                  <strong>Parking Lot: {{ parking_lot.name }}</strong><br>
+                  <strong>Location: </strong> {{ parking_lot.gpsLocation }}<br>
+                  <strong>Address:</strong> {{ parking_lot.address }}<br>
+                  <strong>Type:</strong> {{ parking_lot.type }}<br>
+                  <strong>Capacity:</strong> {{ parking_lot.capacity }}<br>
+          {% endfor %}
+       </div>
+    </div>
+    <br>
+  <div class="card">
+    <div class="card-body">
+      
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="card stat-card border-primary">
+            <div class="card-body">
+              <h5 class="card-title">Total Tickets</h5>
+              <h2>{{ total_tickets }}</h2>
+              <p class="text-success">
+                <i class="fas fa-arrow-up"></i> {{ total_tickets_percentage }}%
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-card border-success">
+            <div class="card-body">
+              <h5 class="card-title">Total Open Tickets</h5>
+              <h2>{{ total_open_tickets }}</h2>
+              <p class="text-danger">
+                <i class="fas fa-arrow-down"></i> {{ total_open_tickets_percentage }}%
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-card border-warning">
+            <div class="card-body">
+              <h5 class="card-title">Total Paid Tickets</h5>
+              <h2>{{ total_paid_tickets }} RWF</h2>
+              <p class="text-success">
+                <i class="fas fa-arrow-up"></i> {{ total_paid_tickets_percentage }}%
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-card border-info">
+            <div class="card-body">
+              <h5 class="card-title">Total Not Paid</h5>
+              <h2>{{ total_not_paid_tickets }} RWF</h2>
+              <p class="text-danger">
+                <i class="fas fa-arrow-down"></i> {{ total_not_paid_tickets_percentage }}%
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <br>
+  <div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-ticket me-2"></i>Tickets</h5>
+                <canvas id="ticketsChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-money-bill me-2"></i>Money</h5>
+                <canvas id="moneyChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+      <h5 class="card-title">Recent Activity</h5>
+      </div>
+      <div class="table-responsive">
+        <table class="table" id="activityTable">
+          <thead>
+            <tr>
+                <th>#</th>
+                <th>Parking Space</th>
+                <th>Name</th>
+                <th>Plate</th>
+                <th>Entry Time</th>
+                <th>Exit Time</th>
+                <th>Total Payment</th>
+                <th>Payment Status</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+                        {% for ticket in tickets %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ ticket.parking_space.space_code }}</td>
+                            <td>{{ ticket.name|default:"N/A" }}</td>
+                            <td>{{ ticket.plate }}</td>
+                            <td>{{ ticket.entry_time|date:"Y-m-d H:i:s" }}</td>
+                            <td>{{ ticket.exit_time|date:"Y-m-d H:i:s"|default:"N/A" }}</td>
+                            <td>{{ ticket.total_payment }} RWF</td>
+                            <td>{{ ticket.payment_status|yesno:"Paid,Not Yet" }}</td>
+                            <td>{{ ticket.created_at|naturaltime }}</td>
+                            <!-- End Ticket button if exit_time is null -->
+                            
+                            {% if ticket.payment_status %}
+                            <td>
+                                <a href="{% url 'print_receipt' ticket.id %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-print"></i> Print
+                                </a>
+                            </td>
+                            {% else %}
+                            <td></td>
+                            {% endif %}
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10" class="text-center">No tickets found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    var ctx1 = document.getElementById('ticketsChart').getContext('2d');
+    var ticketsChart = new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+            labels: ['Total Tickets', 'Total Open Tickets'],
+            datasets: [{
+                data: [{{ total_tickets }}, {{ total_open_tickets }}],
+                backgroundColor: ['#ff6347', '#3b8bba'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.raw + ' Tickets';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    var ctx2 = document.getElementById('moneyChart').getContext('2d');
+    var moneyChart = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['Total Paid Tickets', 'Total Not Paid Tickets'],
+            datasets: [{
+                data: [{{ total_paid_tickets }}, {{ total_not_paid_tickets }}],
+                backgroundColor: ['#28a745', '#dc3545'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.raw + ' RWF';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
+</body>
+
+</html>
