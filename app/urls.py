@@ -8,7 +8,7 @@ urlpatterns = [
     path('unauthorized', views.unauthorized, name="unauthorized"),
     path('logout', views.logoutuser, name="logoutuser"),
     path('signup', views.signup, name="signup"),
-    path('dashboard', views.dashboard, name="dashboard"),
+    path('dashboard/', views.dashboard, name="dashboard"),
     path('dashboard/uaccounts/profile', views.profile, name="profile"),
     path('dashboard/uaccounts', views.uaccounts, name="uaccounts"),
     path('dashboard/uaccounts/edit/<int:user_id>/', views.edit_user, name='edit_user'),
@@ -31,4 +31,10 @@ urlpatterns = [
 
 
     path('dashboard/create-ticket/', views.create_ticket, name='create_ticket'),
+    path('dashboard/att-tickets/', views.att_tickets, name='att_tickets'),
+    path('dashboard/tickets/<int:ticket_id>/end/', views.end_ticket, name='end_ticket'),
+    path('dashboard/tickets/<int:ticket_id>/print/', views.print_receipt, name='print_receipt'),
+    path('dashboard/tickets/<int:ticket_id>/change-payment-status/', views.change_payment_status, name='change_payment_status'),
+    path('dashboard/att-summary/', views.attsummary, name='att_summary'),
+
 ]

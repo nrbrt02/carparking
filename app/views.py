@@ -3,13 +3,17 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
 from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate, TicketForm
-from .models import User, ParkingLot, Subscription, ParkingSpace
+from .models import User, ParkingLot, Subscription, ParkingSpace, Ticket
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
 import random
 from django.utils import timezone
 from django.db.models import Q 
+from django.http import HttpResponse
+from datetime import timedelta
+from django.utils.timezone import now
+
 
 def home(request):
     return render(request, 'index.html')
@@ -585,3 +589,118 @@ def create_ticket(request):
     return redirect('dashboard')
 
 
+@login_required
+@attendants_required
+def att_tickets(request):
+    tickets = Ticket.objects.filter(parking_attendee=request.user)
+    parking_spaces = get_user_parking_spaces(request.user)
+    return render(
+        request,
+        'dashboard/atttickets.html',
+        {
+            'tickets': tickets,
+            'active_menu': 'tickets',
+            'parking_spaces': parking_spaces,
+        }
+    )
+
+@login_required
+@attendants_required
+def end_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    # Ensure the ticket hasn't already been ended
+    if not ticket.exit_time:
+        ticket.exit_time = timezone.now()  # Set the exit time to the current time
+
+        # Calculate the duration in hours as a float
+        duration = (ticket.exit_time - ticket.entry_time).total_seconds() / 3600
+
+        # Get the subscription price
+        subscription_price = ticket.parking_space.subscription.price  # Assuming this relationship exists
+
+        # Calculate the total payment
+        if duration < 1:
+            ticket.total_payment = subscription_price  # Charge the default price
+        else:
+            ticket.total_payment = round(duration * subscription_price, 2)  # Charge based on duration
+
+        # Mark the parking space as available
+        parking_space = ticket.parking_space
+        parking_space.status = False
+        parking_space.save()
+
+        # Save the updated ticket
+        ticket.save()
+
+        messages.success(request, f"Ticket ended successfully! Total payment: {ticket.total_payment} RWF")
+    else:
+        messages.error(request, "Ticket has already been ended.")
+
+    return redirect('att_tickets')
+
+
+
+@login_required
+@attendants_required
+
+@login_required
+def print_receipt(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if ticket.payment_status:
+        parking_space = ticket.parking_space
+        subscription = parking_space.subscription if hasattr(parking_space, 'subscription') else None
+        current_date = now().strftime("%Y-%m-%d")
+
+        # Calculate duration
+        if ticket.exit_time:
+            duration = ticket.exit_time - ticket.entry_time
+            hours, remainder = divmod(duration.total_seconds(), 3600)
+            minutes = remainder // 60
+            duration_str = f"{int(hours)} hours, {int(minutes)} minutes"
+        else:
+            duration_str = "N/A"
+
+        return render(
+            request,
+            'dashboard/receipt.html',
+            {
+                'ticket': ticket,
+                'parking_space': parking_space,
+                'subscription': subscription,
+                'current_date': current_date,
+                'duration_str': duration_str,  # Pass the formatted duration
+            }
+        )
+    else:
+        messages.error(request, "Payment not completed. Cannot print receipt.")
+        return redirect('att_tickets')
+
+
+@login_required
+@attendants_required
+def change_payment_status(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if not ticket.payment_status:
+        ticket.payment_status = True
+        ticket.save()
+        messages.success(request, f"Payment status for Ticket {ticket.id} updated to Paid.")
+    else:
+        messages.warning(request, f"Payment status for Ticket {ticket.id} is already Paid.")
+
+    return redirect('att_tickets')
+
+def attsummary(request):
+    tickets = Ticket.objects.filter(parking_attendee=request.user)
+    parking_spaces = get_user_parking_spaces(request.user)
+    return render(
+        request,
+        'dashboard/att_summary.html',
+        {
+            'tickets': tickets,
+            'active_menu': 'summary',
+            'parking_spaces': parking_spaces,
+        }
+    )

@@ -11,25 +11,27 @@
     </div>
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="sidebar-link active" href="#" data-page="dashboard">
+        <a class="sidebar-link {% if active_menu == 'dashboard' %}active{% endif %}"href="{% url 'dashboard' %}" data-page="dashboard">
           <i class="fas fa-home me-2"></i> Dashboard
         </a>
       </li>
       <li class="nav-item">
         <a class="sidebar-link" href="#" data-page="users">
-          <i class="fas fa-users me-2"></i> New Ticket
+          <i class="fas fa-users me-2"></i> Open Tickets
         </a>
       </li>
       <li class="nav-item">
-        <a class="sidebar-link" href="#" data-page="analytics">
-          <i class="fas fa-chart-bar me-2"></i> Open Ticket
+        <a class="sidebar-link {% if active_menu == 'tickets' %}active{% endif %}" href="{% url 'att_tickets' %}" data-page="settings">
+          <i class="fas fa-ticket me-2"></i> All Ticktes
         </a>
       </li>
+      
       <li class="nav-item">
-        <a class="sidebar-link" href="#" data-page="settings">
-          <i class="fas fa-cog me-2"></i> All Ticktes
+        <a class="sidebar-link {% if active_menu == 'summary' %}active{% endif %}" href="{% url 'att_summary' %}" data-page="settings">
+          <i class="fas fa-chart-bar me-2"></i>Summary
         </a>
       </li>
+      
     </ul>
   </div>
 </div>

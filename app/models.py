@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.core.validators import MaxValueValidator
-
+from django.utils.timezone import now
 # Create your models here.
 
 phone_regex = RegexValidator(
@@ -127,6 +127,12 @@ class Ticket(models.Model):
     payment_status = models.BooleanField(max_length=50, default=False)
     parking_attendee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.updated_at = now()
+        super().save(*args, **kwargs)
 
     def calculate_duration(self):
         if self.exit_time:
