@@ -7,118 +7,24 @@
 <!-- Main Content -->
 <!-- Top Navbar -->
 
+{% load humanize %}
 
 <!-- Dashboard Content -->
 {% block content %}
 <div class="content">
   <!-- Stats Cards -->
-  <div class="row mb-4">
-    <div class="col-md-3">
-      <div class="card stat-card border-primary">
-        <div class="card-body">
-          <h5 class="card-title">Total Users</h5>
-          <h2>1,234</h2>
-          <p class="text-success">
-            <i class="fas fa-arrow-up"></i> 12.5%
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card stat-card border-success">
-        <div class="card-body">
-          <h5 class="card-title">Revenue</h5>
-          <h2>$45,678</h2>
-          <p class="text-success">
-            <i class="fas fa-arrow-up"></i> 8.3%
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card stat-card border-warning">
-        <div class="card-body">
-          <h5 class="card-title">Orders</h5>
-          <h2>567</h2>
-          <p class="text-danger">
-            <i class="fas fa-arrow-down"></i> 3.2%
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card stat-card border-info">
-        <div class="card-body">
-          <h5 class="card-title">Visitors</h5>
-          <h2>8,901</h2>
-          <p class="text-success">
-            <i class="fas fa-arrow-up"></i> 15.7%
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Charts Row -->
-  <div class="row mb-4">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Revenue Overview</h5>
-          <!-- <canvas id="revenueChart"></canvas> -->
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Traffic Sources</h5>
-          <!-- <canvas id="trafficChart"></canvas> -->
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Recent Activity Table -->
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Recent Activity</h5>
-      <div class="table-responsive">
-        <table class="table" id="activityTable">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Activity</th>
-              <th>Time</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>John Doe</td>
-              <td>New Order #1234</td>
-              <td>5 mins ago</td>
-              <td><span class="badge bg-success">Completed</span></td>
-            </tr>
-            <tr>
-              <td>Jane Smith</td>
-              <td>Updated Profile</td>
-              <td>15 mins ago</td>
-              <td><span class="badge bg-info">In Progress</span></td>
-            </tr>
-            <tr>
-              <td>Bob Johnson</td>
-              <td>Support Ticket #456</td>
-              <td>1 hour ago</td>
-              <td><span class="badge bg-warning">Pending</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  {% if request.user.role == "ADMIN" %}
+  {% include '../dashboard/includes/admin-index.html' %}
+  {% elif request.user.role == "ATTENDANTS" %}
+  {% include '../dashboard/includes/attendant-index.html' %}
+  {% elif request.user.role == "CLIENT" %}
+  {% include '../dashboard/includes/client-index.html' %}
+  {% else %}
+  <p>No sidebar available for your role.</p>
+  {% endif %}
+
 </div>
 {% endblock %}
 </body>

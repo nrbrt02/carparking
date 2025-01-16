@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
 import random
 from django.utils import timezone
-from django.db.models import Q, Sum
+from django.db.models import Q, Sum, F
 from django.http import HttpResponse, JsonResponse
 from datetime import timedelta, datetime
 from django.utils.timezone import now
@@ -129,6 +129,7 @@ def get_user_parking_spaces(user):
 
 @login_required
 def dashboard(request):
+    # Initialize variables for parking_spaces and form
     parking_spaces = []
     form = TicketForm()
     modal_open = False
@@ -136,17 +137,55 @@ def dashboard(request):
     if request.user.role == 'ATTENDANTS':
         parking_spaces = get_user_parking_spaces(request.user)
 
-    return render(
-        request,
-        "dashboard/index.html",
-        {
-            "active_menu": "dashboard",
-            "parking_spaces": parking_spaces,
-            "form": form,
-            "modal_open": modal_open,
-        },
-    )
+        # Get the total number of tickets issued by the logged-in user
+        total_tickets = Ticket.objects.filter(parking_attendee=request.user).count()
 
+        # Get the total number of open tickets (tickets without exit_time)
+        total_open_tickets = Ticket.objects.filter(parking_attendee=request.user, exit_time__isnull=True).count()
+
+        # Get the total number of paid tickets (tickets with exit_time and payment_status = True)
+        total_paid_tickets = Ticket.objects.filter(parking_attendee=request.user, payment_status=True).aggregate(total=Sum('total_payment'))['total'] or 0
+
+        # Get the total number of not paid tickets (tickets with exit_time but payment_status = False)
+        total_not_paid_tickets = Ticket.objects.filter(parking_attendee=request.user, exit_time__isnull=False, payment_status=False).aggregate(total=Sum('total_payment'))['total'] or 0
+
+        # Calculate the percentage of paid tickets
+        total_paid_tickets_percentage = (total_paid_tickets / (total_paid_tickets + total_not_paid_tickets) * 100) if (total_paid_tickets + total_not_paid_tickets) > 0 else 0
+
+        # Calculate the percentage of open tickets
+        total_open_tickets_percentage = (total_open_tickets / total_tickets * 100) if total_tickets > 0 else 0
+
+        # Calculate the percentage of not paid tickets
+        total_not_paid_tickets_percentage = (total_not_paid_tickets / total_tickets * 100) if total_tickets > 0 else 0
+
+        tickets = Ticket.objects.filter(parking_attendee=request.user).order_by('-created_at')[:3]
+        return render(
+            request,
+            "dashboard/index.html",
+            {
+                "tickets": tickets,
+                "active_menu": "dashboard",
+                "parking_spaces": parking_spaces,
+                "form": form,
+                "modal_open": modal_open,
+                "total_tickets": total_tickets,
+                "total_open_tickets": total_open_tickets,
+                "total_paid_tickets": total_paid_tickets,
+                "total_not_paid_tickets": total_not_paid_tickets,
+                "total_tickets_percentage": total_open_tickets_percentage,
+                "total_open_tickets_percentage": total_open_tickets_percentage,
+                "total_paid_tickets_percentage": total_paid_tickets_percentage,
+                "total_not_paid_tickets_percentage": total_not_paid_tickets_percentage,
+            },
+        )
+
+    # Add any additional logic if needed for non-'ATTENDANTS' role
+    return render(request, "dashboard/index.html", {
+        "active_menu": "dashboard",
+        "parking_spaces": parking_spaces,
+        "form": form,
+        "modal_open": modal_open,
+    })
 
 
 
