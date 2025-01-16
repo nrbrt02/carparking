@@ -9,9 +9,9 @@ from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
 import random
 from django.utils import timezone
-from django.db.models import Q 
-from django.http import HttpResponse
-from datetime import timedelta
+from django.db.models import Q, Sum
+from django.http import HttpResponse, JsonResponse
+from datetime import timedelta, datetime
 from django.utils.timezone import now
 
 
@@ -692,12 +692,72 @@ def change_payment_status(request, ticket_id):
 
     return redirect('att_tickets')
 
+
+@login_required
+@attendants_required
 def attsummary(request):
+    if request.method == "GET" and "option" in request.GET:
+        option = request.GET.get("option")
+        user = request.user
+        response_data = ""
+
+        if option == "tickets":
+            tickets = Ticket.objects.filter(parking_attendee=user)
+            open_tickets = tickets.filter(exit_time__isnull=True)
+            not_paid_tickets = tickets.filter(exit_time__isnull=False, payment_status=False)
+            completed_tickets = tickets.filter(exit_time__isnull=False, payment_status=True)
+
+            response_data = f"Total Tickets: {tickets.count()}<br>" \
+                            f"Open Tickets: {open_tickets.count()}<br>" \
+                            f"Not Paid: {not_paid_tickets.count()}<br>" \
+                            f"Completed Tickets: {completed_tickets.count()}<br>"
+
+        elif option == "income":
+            completed_tickets = Ticket.objects.filter(
+                parking_attendee=user, exit_time__isnull=False, payment_status=True
+            )
+            not_paid_tickets = Ticket.objects.filter(
+                parking_attendee=user, exit_time__isnull=False, payment_status=False
+            )
+            total_income = completed_tickets.aggregate(Sum("total_payment"))["total_payment__sum"] or 0
+            expected_income = (
+                completed_tickets.aggregate(Sum("total_payment"))["total_payment__sum"] or 0
+            ) + (not_paid_tickets.aggregate(Sum("total_payment"))["total_payment__sum"] or 0)
+
+            response_data = f"Total Income: {total_income} RWF<br>" \
+                            f"Expected Income: {expected_income} RWF<br>"
+
+        elif option == "this_month":
+            current_month = datetime.now().month
+            current_year = datetime.now().year
+            tickets = Ticket.objects.filter(parking_attendee=user, created_at__year=current_year, created_at__month=current_month)
+            open_tickets = tickets.filter(exit_time__isnull=True)
+            total_income = tickets.filter(payment_status=True).aggregate(Sum("total_payment"))["total_payment__sum"] or 0
+            expected_income = tickets.aggregate(Sum("total_payment"))["total_payment__sum"] or 0
+
+            response_data = f"Total Tickets this Month: {tickets.count()}<br>" \
+                            f"Total Income this Month: {total_income} RWF<br>" \
+                            f"Open Tickets this Month: {open_tickets.count()}<br>" \
+                            f"Expected Income this Month: {expected_income} RWF<br>"
+
+        elif option == "general":
+            tickets = Ticket.objects.filter(parking_attendee=user)
+            open_tickets = tickets.filter(exit_time__isnull=True)
+            total_income = tickets.filter(payment_status=True).aggregate(Sum("total_payment"))["total_payment__sum"] or 0
+            expected_income = tickets.aggregate(Sum("total_payment"))["total_payment__sum"] or 0
+
+            response_data = f"Total Tickets: {tickets.count()}<br>" \
+                            f"Total Income: {total_income} RWF<br>" \
+                            f"Open Tickets: {open_tickets.count()}<br>" \
+                            f"Expected Income: {expected_income} RWF<br>"
+
+        return JsonResponse({"message": response_data})
+
     tickets = Ticket.objects.filter(parking_attendee=request.user)
     parking_spaces = get_user_parking_spaces(request.user)
     return render(
         request,
-        'dashboard/att_summary.html',
+        "dashboard/att_summary.html",
         {
             'tickets': tickets,
             'active_menu': 'summary',

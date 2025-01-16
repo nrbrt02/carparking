@@ -4,17 +4,25 @@
 {% load humanize %}
 
 {% block content %}
+
     <div class="content">
         <div class="card">
+            <div class="col-12" id="summary-result">
+                <!-- Results will be dynamically injected here -->
+            </div>
             <div class="card-body">
     <div class="d-flex justify-content-between align-items-center">
         <h5 class="card-title"><i class="fas fa-list"></i> Summary</h5>
-        <select name="" id="" class="form-control" style="width: 200px;">
+        <select id="summary-options" class="form-control" style="width: 200px;">
             <option value="" selected>--Select Option--</option>
-            <option value="">Tickets</option>
-            <option value="">Income</option>
-            <option value="">This Month</option>
+            <option value="tickets">Tickets</option>
+            <option value="income">Income</option>
+            <option value="this_month">This Month</option>
+            <option value="general">General</option>
         </select>
+        
+        
+        
     </div>
 <br>
               <div class="table-responsive">
@@ -81,4 +89,32 @@
             </div>
           </div>
     </div>
+
+    <script>
+        document.getElementById("summary-options").addEventListener("change", function () {
+            const selectedOption = this.value;
+            const messageContainer = document.getElementById("summary-result");
+            
+            // Clear any previous messages
+            messageContainer.innerHTML = "";
+    
+            // If the user selects the default option, clear the message
+            if (!selectedOption) {
+                return; // Exit early if no option is selected
+            }
+    
+            fetch(`/dashboard/att-summary/?option=${selectedOption}`)
+                .then(response => response.json())
+                .then(data => {
+                    const message = data.message;
+                    if (message) {
+                        // Insert the response message into the message container
+                        messageContainer.innerHTML = `<div class="alert alert-success"><h3><i class="fas fa-check-circle"></i> ${selectedOption} Summary</h3> ${message}</div>`;
+                    }
+                })
+                .catch(error => console.error("Error fetching summary data:", error));
+        });
+    </script>
+    
+    
 {% endblock %}
