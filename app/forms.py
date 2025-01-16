@@ -1,5 +1,5 @@
 from django import forms
-from .models import ParkingLot, User, Subscription, ParkingSpace
+from .models import ParkingLot, User, Subscription, ParkingSpace, Ticket
 
 
 class LoginForm(forms.Form):
@@ -104,3 +104,14 @@ class ParkingSpaceFormUpdate(forms.ModelForm):
             'type': forms.Select(attrs={'class': 'form-select'}),
             'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+
+
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['parking_space', 'name', 'plate']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filter parking spaces to only show unoccupied ones
+        self.fields['parking_space'].queryset = ParkingSpace.objects.filter(status=False)

@@ -110,7 +110,7 @@ class ParkingLot(models.Model):
         return [restriction.strip() for restriction in self.restrictions.split(',') if restriction.strip()]
         
 class ParkingSpace(models.Model):
-    parking_lot = models.ForeignKey('ParkingLot', on_delete=models.CASCADE, related_name='parking_spaces')
+    parking_lot = models.ForeignKey('ParkingLot', on_delete=models.PROTECT, related_name='parking_spaces')
     subscription = models.ForeignKey('Subscription', on_delete=models.SET_NULL, null=True, blank=True)
     space_code = models.CharField(max_length=6, unique=True)
     type = models.CharField(max_length=20, choices=SPACE_TYPE_CHOICES, default='REGULAR')
@@ -118,15 +118,18 @@ class ParkingSpace(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Ticket(models.Model):
-    parking = models.ForeignKey('ParkingLot', on_delete=models.DO_NOTHING)
-    subscription = models.ForeignKey('Subscription', on_delete=models.SET_NULL, null=True, blank=True)
-    parking_space = models.ForeignKey('ParkingSpace', on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    parking_space = models.ForeignKey(ParkingSpace, on_delete=models.PROTECT)
+    name = models.CharField(max_length=255, null=True, blank=True)  # Made nullable
     plate = models.CharField(validators=[plate_regex], max_length=9)
     entry_time = models.DateTimeField(default=timezone.now)
     exit_time = models.DateTimeField(null=True, blank=True)
-    duration = models.DurationField()
-    total_payment = models.IntegerField
-    payment_status = models.CharField(max_length=50, choices= PAYMENT_STATUS, default='unpaid')
-    parking_attendee = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    total_payment = models.IntegerField(default=0)  # Ensure this is callable
+    payment_status = models.BooleanField(max_length=50, default=False)
+    parking_attendee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def calculate_duration(self):
+        if self.exit_time:
+            return self.exit_time - self.entry_time
+        return None
+

@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
-from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate
+from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate, TicketForm
 from .models import User, ParkingLot, Subscription, ParkingSpace
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
 import random
-
+from django.utils import timezone
+from django.db.models import Q 
 
 def home(request):
     return render(request, 'index.html')
@@ -17,6 +18,11 @@ def home(request):
 def unauthorized(request):
     return render(request, 'unauthorized.html')
 
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .forms import LoginForm  # Ensure your LoginForm is correctly imported
+
 def loginuser(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -24,38 +30,41 @@ def loginuser(request):
             login_input = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
 
-            try:
-                # Check if login_input is an email or username
-                if '@' in login_input:
+            # Check if login_input is an email or username
+            if '@' in login_input:
+                try:
+                    # Try to get user by email
                     user = User.objects.get(email=login_input)
-                    username = user.username
-                else:
-                    username = login_input
+                except User.DoesNotExist:
+                    user = None
+            else:
+                try:
+                    # Try to get user by username
+                    user = User.objects.get(username=login_input)
+                except User.DoesNotExist:
+                    user = None
 
+            if user is not None:
                 # Authenticate user
-                user = authenticate(request, username=username, password=password)
+                user = authenticate(request, username=user.username, password=password)
 
                 if user is not None:
-                    login(request, user)  # Correct usage of login
-                    # Redirect based on user role
-                    # if user.role == User.Role.ADMIN:
-                    return redirect('dashboard')
-                    # elif user.role == User.Role.ATTENDANTS:
-                    #     return redirect('attendants-home')
-                    # elif user.role == User.Role.CLIENT:
-                    #     return redirect('client-home')
-                    # else:
-                        # return redirect('403')  # Permission denied
+                    # Check if the account is active
+                    if user.is_active:
+                        login(request, user)
+                        return redirect('dashboard')
+                    else:
+                        return redirect('unauthorized')
                 else:
                     messages.error(request, "Invalid username/email or password.")
-            except User.DoesNotExist:
-                messages.error(request, "Invalid email or password.")
+            else:
+                messages.error(request, "User does not exist.")
         else:
             messages.error(request, "Invalid form submission.")
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
 
+    return render(request, 'login.html', {'form': form})
     
 def signup(request):
     if request.method == 'POST':
@@ -106,9 +115,36 @@ def logoutuser(request):
     logout(request)  # This logs out the user
     return redirect('home')
 
+
+def get_user_parking_spaces(user):
+    parking_lots = ParkingLot.objects.filter(
+        Q(manager_1=user) | Q(manager_2=user)
+    )
+    return ParkingSpace.objects.filter(parking_lot__in=parking_lots, status=False)
+
+
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard/index.html', {'active_menu': 'dashboard'})
+    parking_spaces = []
+    form = TicketForm()
+    modal_open = False
+
+    if request.user.role == 'ATTENDANTS':
+        parking_spaces = get_user_parking_spaces(request.user)
+
+    return render(
+        request,
+        "dashboard/index.html",
+        {
+            "active_menu": "dashboard",
+            "parking_spaces": parking_spaces,
+            "form": form,
+            "modal_open": modal_open,
+        },
+    )
+
+
+
 
 @login_required
 def profile(request):
@@ -514,3 +550,38 @@ def delete_parking_space(request, pk):
         'parking_space': parking_space,
         'active_menu': 'parking_spaces'
     })
+
+
+@login_required
+@attendants_required
+def create_ticket(request):
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.entry_time = timezone.now()
+            ticket.payment_status = False
+            ticket.parking_attendee = request.user
+            ticket.save()
+
+            parking_space = ticket.parking_space
+            if parking_space:
+                parking_space.status = True
+                parking_space.save()
+            messages.success(request, "Ticket created successfully!")
+            return redirect('dashboard')
+        else:
+            parking_spaces = get_user_parking_spaces(request.user)
+            return render(
+                request,
+                'dashboard/index.html',
+                {
+                    'form': form,
+                    'modal_open': True,
+                    'active_menu': 'dashboard',
+                    'parking_spaces': parking_spaces,
+                }
+            )
+    return redirect('dashboard')
+
+

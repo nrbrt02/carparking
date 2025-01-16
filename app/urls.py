@@ -30,4 +30,5 @@ urlpatterns = [
     path('dashboard/parkingspace/delete/<int:pk>/', views.delete_parking_space, name='delete_parking_space'),
 
 
+    path('dashboard/create-ticket/', views.create_ticket, name='create_ticket'),
 ]

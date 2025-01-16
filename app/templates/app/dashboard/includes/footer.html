@@ -4,6 +4,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <script>
+  document.addEventListener("DOMContentLoaded", function () {
+      // const showModal = `{{ show_modal|yesno:"true,false" }}`;
+      if(`{{ show_modal }}`){
+        const showModal = true
+      }else{
+        const showModal = false
+      }
+      if (showModal) {
+          const modal = new bootstrap.Modal(document.getElementById("newTicketModal"));
+          modal.show();
+      }
+  });
+</script>
+
+<script>
   // Sidebar Toggle
   document
     .getElementById("sidebarToggle")
