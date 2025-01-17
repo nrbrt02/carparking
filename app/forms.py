@@ -1,5 +1,6 @@
 from django import forms
-from .models import ParkingLot, User, Subscription, ParkingSpace, Ticket
+from .models import ParkingLot, User, Subscription, ParkingSpace, Ticket, Subscribed
+import re 
 
 
 class LoginForm(forms.Form):
@@ -115,3 +116,25 @@ class TicketForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Filter parking spaces to only show unoccupied ones
         self.fields['parking_space'].queryset = ParkingSpace.objects.filter(status=False)
+
+
+class SubscribedForm(forms.ModelForm):
+    class Meta:
+        model = Subscribed
+        fields = ['parking_space', 'plate', 'start_date', 'end_date']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['start_date'].required = False
+        self.fields['end_date'].required = False
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start_date")
+        end_date = cleaned_data.get("end_date")
+
+        if start_date and end_date and end_date <= start_date:
+            raise forms.ValidationError("End date must be after the start date.")
+        
+        return cleaned_data
+    

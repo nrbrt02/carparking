@@ -1,0 +1,53 @@
+<form method="post" action="{% url 'start_subscription' %}" id="subscriptionForm">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="parking_lot" class="form-label">Parking Lot</label>
+        <select class="form-select" name="parking_lot" id="parking_lot" required>
+            <option value="" selected>-- Select Parking Lot --</option>
+            {% for lot in parking_lots %}
+                <option value="{{ lot.id }}" {% if form.parking_lot.value == lot.id %}selected{% endif %}>{{ lot.name }}</option>
+            {% endfor %}
+        </select>
+        {% if form.parking_lot.errors %}
+            <div class="text-danger">{{ form.parking_lot.errors|join:", " }}</div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="parking_space" class="form-label">Parking Space</label>
+        <select class="form-select" name="parking_space" id="parking_space" required>
+            <option value="">-- Select Parking Space --</option>
+        </select>
+        {% if form.parking_space.errors %}
+            <div class="text-danger">{{ form.parking_space.errors|join:", " }}</div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="car_plate" class="form-label">Car Plate</label>
+        <input type="text" class="form-control" id="car_plate" name="plate" maxlength="9" required>
+        {% if form.plate.errors %}
+            <div class="text-danger">{{ form.plate.errors|join:", " }}</div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="subscription_time" class="form-label">Subscription Time</label>
+        <select class="form-select" name="subscription_time" id="subscription_time" required>
+            <option value="7" {% if form.subscription_time.value == "7" %}selected{% endif %}>1 Week</option>
+            <option value="14" {% if form.subscription_time.value == "14" %}selected{% endif %}>2 Weeks</option>
+            <option value="30" {% if form.subscription_time.value == "30" %}selected{% endif %}>1 Month</option>
+            <option value="60" {% if form.subscription_time.value == "60" %}selected{% endif %}>2 Months</option>
+            <option value="90" {% if form.subscription_time.value == "90" %}selected{% endif %}>3 Months</option>
+        </select>
+        {% if form.subscription_time.errors %}
+            <div class="text-danger">{{ form.subscription_time.errors|join:", " }}</div>
+        {% endif %}
+    </div>
+
+    <div id="formErrors" class="text-danger mb-3"></div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+

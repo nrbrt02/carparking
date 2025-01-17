@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
-from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate, TicketForm
-from .models import User, ParkingLot, Subscription, ParkingSpace, Ticket
+from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate, TicketForm, SubscribedForm
+from .models import User, ParkingLot, Subscription, ParkingSpace, Ticket, Subscribed
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from .decorators import admin_required, attendants_required, client_required, admin_or_attendant_required
@@ -14,6 +14,8 @@ from django.db.models import Q, Sum, F
 from django.http import HttpResponse, JsonResponse
 from datetime import timedelta, datetime
 from django.utils.timezone import now
+from django.db import transaction
+
 
 
 def home(request):
@@ -160,11 +162,50 @@ def get_recent_tickets(user, limit=3):
     """Returns the most recent tickets for a given user."""
     return Ticket.objects.filter(parking_attendee=user).order_by('-created_at')[:limit]
 
+def get_client_subscription(user):
+    """
+    Retrieves the active subscription for the logged-in client.
+    Returns None if no active subscription exists.
+    """
+    if user.role != 'CLIENT':
+        return None
+
+    # Fetch the active subscription for the user
+    active_subscription = Subscribed.objects.filter(
+        client=user,
+        status='ACTIVE',
+        end_date__gt=now()
+    ).first()
+
+    return active_subscription
+
+@login_required
+def get_available_parking_spaces(request, parking_lot_id):
+    spaces = ParkingSpace.objects.filter(parking_lot_id=parking_lot_id, status=False)
+    return JsonResponse([{"id": space.id, "space_code": space.space_code} for space in spaces], safe=False)
+
 @login_required
 def dashboard(request):
     parking_spaces = []
     form = TicketForm()
     modal_open = False
+
+    if request.user.role == 'CLIENT':
+        # Get the active subscription for the client
+        active_subscription = get_client_subscription(request.user)
+        parking_lots = ParkingLot.objects.all()
+        return render(
+            request,
+            "dashboard/index.html",
+            {
+                "active_menu": "dashboard",
+                "active_subscription": active_subscription,
+                "parking_lots": parking_lots,
+                # "form": form,
+                "modal_open": modal_open,
+                
+            },
+        )
 
     if request.user.role == 'ATTENDANTS':
         parking_spaces = get_user_parking_spaces(request.user)
@@ -851,3 +892,110 @@ def view_userA(request, user_id):
             "assigned_parking_lots": assigned_parking_lots,
         },
     )
+
+def calculate_cost(parking_space, subscription_time=None, start_date=None, end_date=None):
+    """
+    Calculate the total cost of a subscription.
+
+    Args:
+        parking_space (ParkingSpace): The parking space for which the subscription is made.
+        subscription_time (int): The subscription duration in days (optional).
+        start_date (datetime): Start date of the subscription (optional).
+        end_date (datetime): End date of the subscription (optional).
+
+    Returns:
+        int: The total cost after applying the discount rate.
+    """
+    # Ensure parking space has a related subscription
+    if not parking_space.subscription:
+        raise ValueError("The selected parking space does not have an associated subscription plan.")
+
+    subscription = parking_space.subscription
+    price_per_hour = subscription.price / 24  # Convert daily price to hourly price
+
+    # Determine the duration in hours
+    if subscription_time:
+        total_hours = subscription_time * 24
+    elif start_date and end_date:
+        total_hours = int((end_date - start_date).total_seconds() // 3600)
+    else:
+        raise ValueError("Either subscription_time or start_date and end_date must be provided.")
+
+    # Calculate the base cost
+    base_cost = total_hours * price_per_hour
+
+    # Apply the discount rate
+    discount = (base_cost * subscription.discount_rate) / 100
+    final_cost = int(base_cost - discount)
+
+    return final_cost
+
+
+@login_required
+def start_subscription(request):
+    if request.method == "POST":
+        form = SubscribedForm(request.POST)
+        if form.is_valid():
+            subscription_time = int(request.POST.get("subscription_time"))
+            parking_space = form.cleaned_data.get("parking_space")
+            start_date = now()
+            end_date = start_date + timedelta(days=subscription_time)
+
+            # Validation: Ensure no overlapping subscriptions
+            overlapping_subscriptions = Subscribed.objects.filter(
+                parking_space=parking_space,
+                end_date__gt=start_date,
+                start_date__lt=end_date,
+                status='ACTIVE'
+            )
+
+            if overlapping_subscriptions.exists():
+                messages.error(
+                    request, "There is already an active subscription for this parking space during the selected period."
+                )
+                return render(
+                    request, 
+                    "dashboard/includes/subscription_form_fragment.html", 
+                    {"form": form, "parking_lots": ParkingSpace.objects.all()}
+                )
+
+            # Calculate the total cost
+            try:
+                total_cost = calculate_cost(
+                    parking_space=parking_space,
+                    subscription_time=subscription_time
+                )
+            except ValueError as e:
+                messages.error(request, str(e))
+                return render(
+                    request, 
+                    "dashboard/includes/subscription_form_fragment.html", 
+                    {"form": form, "parking_lots": ParkingSpace.objects.all()}
+                )
+
+            # If all is valid, create the subscription and update the parking space status
+            with transaction.atomic():  # Ensure atomicity
+                subscription = form.save(commit=False)
+                subscription.client = request.user
+                subscription.start_date = start_date
+                subscription.end_date = end_date
+                subscription.total_cost = total_cost
+                subscription.save()
+
+                # Update parking space status
+                parking_space.status = True
+                parking_space.save()
+
+            messages.success(request, "Subscription created successfully!")
+            return JsonResponse({"success": True})
+
+        else:
+            # Render only the form fragment with errors
+            parking_lots = ParkingLot.objects.all()
+            return render(
+                request, 
+                "dashboard/includes/subscription_form_fragment.html", 
+                {"form": form, "parking_lots": parking_lots}
+            )
+    
+    return JsonResponse({"error": "Invalid request method."}, status=400)

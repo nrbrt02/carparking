@@ -14,7 +14,9 @@
     <div class="ms-auto d-flex align-items-center">
 
       {% if request.user.role == "ATTENDANTS" %}
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTicketModal">New Ticket</button>&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTicketModal">New Ticket</button>&nbsp;&nbsp;&nbsp;
+      {% elif request.user.role == "CLIENT" %}
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionModal">My Subscription</button>&nbsp;&nbsp;&nbsp;
       {% endif %}
       <div class="dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">

@@ -1,0 +1,66 @@
+
+{% load humanize %}
+<div class="modal-body" id="subscriptionModalBody">
+    {% for field in form %}
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger">{{ field.errors|join:", " }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <div class="text-danger">
+        {{ form.non_field_errors|join:"<br>" }}
+    </div>
+
+
+      {% if active_subscription %}
+          <p><strong>Parking Space:</strong> {{ active_subscription.parking_space.name }}</p>
+          <p><strong>Car Plate:</strong> {{ active_subscription.plate }}</p>
+          <p><strong>Start Date:</strong> {{ active_subscription.start_date|date:"SHORT_DATETIME_FORMAT" }} ({{ active_subscription.start_date|naturaltime }})</p>
+          <p><strong>End Date:</strong> {{ active_subscription.end_date|date:"SHORT_DATETIME_FORMAT" }} ({{ active_subscription.end_date|naturaltime }})</p>
+          <p><strong>Total Cost:</strong> {{ active_subscription.total_cost }} RWF</p>
+          <p><strong>Payment Status:</strong> {{ active_subscription.payment_status|yesno:"Paid,Not Paid" }}</p>
+      {% else %}
+          <p class="alert alert-primary">You do not have an active subscription. Make One</p>
+          <form method="post" action="{% url 'start_subscription' %}" id="subscriptionForm">
+              {% csrf_token %}
+              <div class="mb-3">
+                  <label for="parking_lot" class="form-label">Parking Lot</label>
+                  <select class="form-select" name="parking_lot" id="parking_lot" required>
+                      <option value="" selected>-- Select Parking Lot --</option>
+                      {% for lot in parking_lots %}
+                          <option value="{{ lot.id }}">{{ lot.name }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+              <div class="mb-3">
+                  <label for="parking_space" class="form-label">Parking Space</label>
+                  <select class="form-select" name="parking_space" id="parking_space" required>
+                      <option value="">-- Select Parking Space --</option>
+                  </select>
+              </div>
+              <div class="mb-3">
+                  <label for="car_plate" class="form-label">Car Plate</label>
+                  <input type="text" class="form-control" id="car_plate" name="plate" maxlength="9" required>
+                  {% if form.plate.errors %}
+                      <div class="text-danger">{{ form.plate.errors|join:", " }}</div>
+                  {% else %}
+                      <p>Plate number needs to be formatted like AAA 000 A</p>
+                  {% endif %}
+              </div>
+              <div class="mb-3">
+                  <label for="subscription_time" class="form-label">Subscription Time</label>
+                  <select class="form-select" name="subscription_time" id="subscription_time" required>
+                      <option value="7">1 Week</option>
+                      <option value="14">2 Weeks</option>
+                      <option value="30">1 Month</option>
+                      <option value="60">2 Months</option>
+                      <option value="90">3 Months</option>
+                  </select>
+              </div>
+              <div id="formErrors" class="text-danger mb-3"></div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      {% endif %}

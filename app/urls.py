@@ -38,4 +38,7 @@ urlpatterns = [
     path('dashboard/tickets/<int:ticket_id>/change-payment-status/', views.change_payment_status, name='change_payment_status'),
     path('dashboard/att-summary/', views.attsummary, name='att_summary'),
 
+    path("get-available-parking-spaces/<int:parking_lot_id>/", views.get_available_parking_spaces, name="get_available_parking_spaces"),
+    path('dashboard/start-subscription/', views.start_subscription, name='start_subscription'),
+
 ]

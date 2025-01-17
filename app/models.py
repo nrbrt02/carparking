@@ -4,6 +4,8 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.core.validators import MaxValueValidator
 from django.utils.timezone import now
+from django.core.exceptions import ValidationError
+
 # Create your models here.
 
 phone_regex = RegexValidator(
@@ -139,3 +141,47 @@ class Ticket(models.Model):
             return self.exit_time - self.entry_time
         return None
 
+
+class Subscribed(models.Model):
+    STATUS_CHOICES = [
+        ('ACTIVE', 'Active'),
+        ('EXPIRED', 'Expired'),
+        ('CANCELLED', 'Cancelled'),
+    ]
+
+    client = models.ForeignKey(
+        User, null=True, on_delete=models.SET_NULL,
+        limit_choices_to={'role': 'CLIENT'}, related_name='subscriptions'
+    )
+    parking_space = models.ForeignKey(
+        ParkingSpace, on_delete=models.CASCADE, related_name='subscriptions'
+    )
+    plate = models.CharField(
+        validators=[plate_regex], max_length=9,
+        help_text="Car plate number (e.g., AAA 000 A)."
+    )
+    start_date = models.DateTimeField(
+        default=now, help_text="Start date and time of the subscription."
+    )
+    end_date = models.DateTimeField(
+        help_text="End date and time of the subscription."
+    )
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default='ACTIVE',
+        help_text="Current status of the subscription."
+    )
+    payment_status = models.BooleanField(
+        default=False, help_text="Payment status: Paid or Not Paid."
+    )
+    total_cost = models.IntegerField(
+        default=0, help_text="Total cost of the subscription."
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def is_active(self):
+        """Check if the subscription is currently active."""
+        return self.status == 'ACTIVE' and self.end_date > now()
+
+    def __str__(self):
+        return f"Subscription: {self.client.username} at {self.parking_space.space_code} ({self.start_date} to {self.end_date})"
