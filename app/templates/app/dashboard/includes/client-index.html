@@ -1,105 +1,21 @@
-<div class="row mb-4">
-    <div class="col-md-3">
-      <div class="card stat-card border-primary">
-        <div class="card-body">
-          <h5 class="card-title">Total Users</h5>
-          <h2>1,234</h2>
-          <p class="text-success">
-            <i class="fas fa-arrow-up"></i> 12.5%
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card stat-card border-success">
-        <div class="card-body">
-          <h5 class="card-title">Revenue</h5>
-          <h2>$45,678</h2>
-          <p class="text-success">
-            <i class="fas fa-arrow-up"></i> 8.3%
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card stat-card border-warning">
-        <div class="card-body">
-          <h5 class="card-title">Orders</h5>
-          <h2>567</h2>
-          <p class="text-danger">
-            <i class="fas fa-arrow-down"></i> 3.2%
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card stat-card border-info">
-        <div class="card-body">
-          <h5 class="card-title">Visitors</h5>
-          <h2>8,901</h2>
-          <p class="text-success">
-            <i class="fas fa-arrow-up"></i> 15.7%
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Charts Row -->
-  <div class="row mb-4">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Revenue Overview</h5>
-          <!-- <canvas id="revenueChart"></canvas> -->
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Traffic Sources</h5>
-          <!-- <canvas id="trafficChart"></canvas> -->
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Recent Activity Table -->
+{% load humanize %}
+
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Recent Activity</h5>
-      <div class="table-responsive">
-        <table class="table" id="activityTable">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Activity</th>
-              <th>Time</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>John Doe</td>
-              <td>New Order #1234</td>
-              <td>5 mins ago</td>
-              <td><span class="badge bg-success">Completed</span></td>
-            </tr>
-            <tr>
-              <td>Jane Smith</td>
-              <td>Updated Profile</td>
-              <td>15 mins ago</td>
-              <td><span class="badge bg-info">In Progress</span></td>
-            </tr>
-            <tr>
-              <td>Bob Johnson</td>
-              <td>Support Ticket #456</td>
-              <td>1 hour ago</td>
-              <td><span class="badge bg-warning">Pending</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <h5 class="card-title">Subscription Progress</h5>
+      <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="{{ progress_percentage }}" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" style="width: {{ progress_percentage }}%"></div>
       </div>
+      <br>
+      
+      {% if active_subscription %}
+        <p>Time spent: {{ progress_percentage|floatformat:2 }}%</p>
+        <p>Start Date: {{ active_subscription.start_date }}</p>
+        <p>End Date: {{ active_subscription.end_date }}</p>
+      {% else %}
+        <p>No active subscription found.</p>
+      {% endif %}
+      
     </div>
   </div>

@@ -194,6 +194,21 @@ def dashboard(request):
         # Get the active subscription for the client
         active_subscription = get_client_subscription(request.user)
         parking_lots = ParkingLot.objects.all()
+
+        # Calculate subscription progress if there's an active subscription
+        progress_percentage = 0
+        if active_subscription:
+            start_date = active_subscription.start_date
+            end_date = active_subscription.end_date
+            now = timezone.now()  # Use timezone-aware current time
+
+            # Calculate total time and elapsed time in seconds
+            total_time = (end_date - start_date).total_seconds()
+            time_elapsed = (now - start_date).total_seconds()
+
+            # Ensure progress percentage is within bounds
+            progress_percentage = min(max((time_elapsed / total_time) * 100, 0), 100)
+
         return render(
             request,
             "dashboard/index.html",
@@ -201,9 +216,8 @@ def dashboard(request):
                 "active_menu": "dashboard",
                 "active_subscription": active_subscription,
                 "parking_lots": parking_lots,
-                # "form": form,
+                "progress_percentage": progress_percentage,
                 "modal_open": modal_open,
-                
             },
         )
 
@@ -226,7 +240,6 @@ def dashboard(request):
                 **ticket_stats,  # Spread the ticket statistics dictionary
             },
         )
-
     # Logic for other roles if needed
     return render(
         request,
@@ -944,8 +957,6 @@ def start_subscription(request):
             # Validation: Ensure no overlapping subscriptions
             overlapping_subscriptions = Subscribed.objects.filter(
                 parking_space=parking_space,
-                end_date__gt=start_date,
-                start_date__lt=end_date,
                 status='ACTIVE'
             )
 
