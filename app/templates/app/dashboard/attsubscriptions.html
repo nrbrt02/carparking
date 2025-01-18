@@ -24,6 +24,7 @@
                             <th>Status</th>
                             <th>Payment Status</th>
                             <th>Total Cost</th>
+                            <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -47,13 +48,22 @@
                                         </a>
                                     {% endif %}
                                 </td>
-                                <td>{{ subscription.total_cost }}RWF</td>
+                                <td>{{ subscription.total_cost }} RWF</td>
+                                <td>
+                                    {% if subscription.payment_status %}
+                                        <a href="{% url 'print_subreceipt' subscription.id %}" 
+                                           class="btn btn-primary btn-sm" target="_blank">
+                                            <i class="fas fa-print"></i> Print Receipt
+                                        </a>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                         {% else %}
                         <p>No active subscriptions found for your parking spaces.</p>
-                    {% endif %}
+                        {% endif %}
                     </tbody>
+                    
                     
                 </table>
               </div>

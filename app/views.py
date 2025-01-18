@@ -1088,3 +1088,17 @@ def start_subscription(request):
             )
     
     return JsonResponse({"error": "Invalid request method."}, status=400)
+
+
+@login_required
+def print_subreceipt(request, subscription_id):
+    subscription = get_object_or_404(Subscribed, id=subscription_id)
+
+    if not subscription.payment_status:
+        return HttpResponse("Cannot print receipt for unpaid subscription.", status=400)
+
+    return render(
+        request,
+        "dashboard/subreceipt.html",
+        {"subscription": subscription},
+    )

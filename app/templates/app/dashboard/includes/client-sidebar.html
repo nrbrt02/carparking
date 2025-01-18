@@ -38,6 +38,7 @@
                   <p><strong>End Date:</strong> {{ active_subscription.end_date|date:"SHORT_DATETIME_FORMAT" }} ({{ active_subscription.end_date|naturaltime }})</p>
                   <p><strong>Total Cost:</strong> {{ active_subscription.total_cost }} RWF</p>
                   <p><strong>Payment Status:</strong> {{ active_subscription.payment_status|yesno:"Paid,Not Paid" }}</p>
+                  <button onclick="window.print()" class="print-btn btn btn-primary">Print Receipt</button>
               {% else %}
                   <p class="alert alert-primary">You do not have an active subscription. Make One</p>
                   <form method="post" action="{% url 'start_subscription' %}" id="subscriptionForm">

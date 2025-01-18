@@ -43,4 +43,6 @@ urlpatterns = [
     path('dashboard/start-subscription/', views.start_subscription, name='start_subscription'),
     path('dashboard/subscribed-parking-spaces/', views.subscribed_parking_spaces, name='subscribed_parking_spaces'),
     path('dashboard/change-payment-status/<int:subscription_id>/', views.change_subpayment_status, name='change_subpayment_status'),
+    path('dashboard/receipt/<int:subscription_id>/', views.print_subreceipt, name='print_subreceipt'),
+
 ]
