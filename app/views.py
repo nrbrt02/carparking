@@ -15,7 +15,9 @@ from django.http import HttpResponse, JsonResponse
 from datetime import timedelta, datetime
 from django.utils.timezone import now
 from django.db import transaction
-
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
 
 
 def home(request):
@@ -183,6 +185,37 @@ def get_client_subscription(user):
 def get_available_parking_spaces(request, parking_lot_id):
     spaces = ParkingSpace.objects.filter(parking_lot_id=parking_lot_id, status=False)
     return JsonResponse([{"id": space.id, "space_code": space.space_code} for space in spaces], safe=False)
+
+def send_subscription_email(user, subscription):
+    subject = "Subscription Confirmation"
+    message = render_to_string('dashboard/emails/subscription_confirmation.html', {
+        'user': user,
+        'subscription': subscription,
+    })
+    email = EmailMessage(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,  # Your configured email sender
+        [user.email],  # Recipient's email
+    )
+    email.content_subtype = "html"  # Send as HTML
+    email.send()
+
+
+def send_payment_status_email(subscription):
+    subject = "Subscription Payment Status Updated"
+    message = render_to_string('dashboard/emails/payment_status_update.html', {
+        'user': subscription.client,
+        'subscription': subscription,
+    })
+    email = EmailMessage(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,  # Configured email sender
+        [subscription.client.email],  # Client's email
+    )
+    email.content_subtype = "html"  # Send as HTML
+    email.send()
 
 @login_required
 def dashboard(request):
@@ -707,6 +740,48 @@ def att_tickets(request):
         }
     )
 
+
+@login_required
+@attendants_required
+def subscribed_parking_spaces(request):
+
+    parking_lots = ParkingLot.objects.filter(manager_1=request.user) | ParkingLot.objects.filter(manager_2=request.user)
+
+    # Get parking spaces associated with those parking lots
+    parking_spaces = ParkingSpace.objects.filter(parking_lot__in=parking_lots)
+
+    # Retrieve active subscriptions linked to those parking spaces
+    subscriptions = Subscribed.objects.filter(
+        parking_space__in=parking_spaces,
+    ).select_related('client', 'parking_space')
+
+    return render(
+        request,
+        "dashboard/attsubscriptions.html",
+        {
+            "active_menu": "subscription",
+            "subscriptions": subscriptions,
+        },
+    )
+
+
+@login_required
+@attendants_required
+def change_subpayment_status(request, subscription_id):
+    subscription = get_object_or_404(Subscribed, id=subscription_id)
+
+    if subscription.payment_status:
+        return JsonResponse({"success": False, "message": "Payment status already marked as Paid."})
+
+    # Update payment status
+    subscription.payment_status = True
+    subscription.save()
+
+    # Send email notification to the client
+    send_payment_status_email(subscription)
+
+    return JsonResponse({"success": True, "message": "Payment status updated successfully."})
+
 @login_required
 @attendants_required
 def end_ticket(request, ticket_id):
@@ -996,6 +1071,9 @@ def start_subscription(request):
                 # Update parking space status
                 parking_space.status = True
                 parking_space.save()
+
+            # Send email notification
+            send_subscription_email(request.user, subscription)
 
             messages.success(request, "Subscription created successfully!")
             return JsonResponse({"success": True})

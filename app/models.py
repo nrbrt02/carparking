@@ -149,33 +149,14 @@ class Subscribed(models.Model):
         ('CANCELLED', 'Cancelled'),
     ]
 
-    client = models.ForeignKey(
-        User, null=True, on_delete=models.SET_NULL,
-        limit_choices_to={'role': 'CLIENT'}, related_name='subscriptions'
-    )
-    parking_space = models.ForeignKey(
-        ParkingSpace, on_delete=models.CASCADE, related_name='subscriptions'
-    )
-    plate = models.CharField(
-        validators=[plate_regex], max_length=9,
-        help_text="Car plate number (e.g., AAA 000 A)."
-    )
-    start_date = models.DateTimeField(
-        default=now, help_text="Start date and time of the subscription."
-    )
-    end_date = models.DateTimeField(
-        help_text="End date and time of the subscription."
-    )
-    status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default='ACTIVE',
-        help_text="Current status of the subscription."
-    )
-    payment_status = models.BooleanField(
-        default=False, help_text="Payment status: Paid or Not Paid."
-    )
-    total_cost = models.IntegerField(
-        default=0, help_text="Total cost of the subscription."
-    )
+    client = models.ForeignKey(User, null=True, on_delete=models.SET_NULL,limit_choices_to={'role': 'CLIENT'}, related_name='subscriptions')
+    parking_space = models.ForeignKey(ParkingSpace, on_delete=models.CASCADE, related_name='subscriptions')
+    plate = models.CharField(validators=[plate_regex], max_length=9,help_text="Car plate number (e.g., AAA 000 A).")
+    start_date = models.DateTimeField(default=now, help_text="Start date and time of the subscription.")
+    end_date = models.DateTimeField(help_text="End date and time of the subscription.")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='ACTIVE', help_text="Current status of the subscription.")
+    payment_status = models.BooleanField(default=False, help_text="Payment status: Paid or Not Paid.")
+    total_cost = models.IntegerField(default=0, help_text="Total cost of the subscription.")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

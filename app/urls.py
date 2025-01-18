@@ -31,6 +31,7 @@ urlpatterns = [
     path('dashboard/parkingspace/delete/<int:pk>/', views.delete_parking_space, name='delete_parking_space'),
 
 
+
     path('dashboard/create-ticket/', views.create_ticket, name='create_ticket'),
     path('dashboard/att-tickets/', views.att_tickets, name='att_tickets'),
     path('dashboard/tickets/<int:ticket_id>/end/', views.end_ticket, name='end_ticket'),
@@ -40,5 +41,6 @@ urlpatterns = [
 
     path("get-available-parking-spaces/<int:parking_lot_id>/", views.get_available_parking_spaces, name="get_available_parking_spaces"),
     path('dashboard/start-subscription/', views.start_subscription, name='start_subscription'),
-
+    path('dashboard/subscribed-parking-spaces/', views.subscribed_parking_spaces, name='subscribed_parking_spaces'),
+    path('dashboard/change-payment-status/<int:subscription_id>/', views.change_subpayment_status, name='change_subpayment_status'),
 ]

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subscription Confirmation</title>
+</head>
+<body>
+    <h2>Subscription Confirmation</h2>
+    <p>Dear {{ user.first_name }},</p>
+    <p>
+        Thank you for subscribing to a parking space! Here are your subscription details:
+    </p>
+    <ul>
+        <li><strong>Parking Space:</strong> {{ subscription.parking_space.space_code }}</li>
+        <li><strong>Start Date:</strong> {{ subscription.start_date }}</li>
+        <li><strong>End Date:</strong> {{ subscription.end_date }}</li>
+        <li><strong>Total Cost:</strong> {{ subscription.total_cost }}RWF</li>
+    </ul>
+    <p>We hope you enjoy the convenience of our services!</p>
+    <p>Best regards,</p>
+    <p>The Parking Management Team</p>
+</body>
+</html>

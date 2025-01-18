@@ -20,7 +20,11 @@
           <i class="fas fa-ticket me-2"></i> All Ticktes
         </a>
       </li>
-      
+      <li class="nav-item">
+        <a class="sidebar-link {% if active_menu == 'subscription' %}active{% endif %}" href="{% url 'subscribed_parking_spaces' %}" data-page="settings">
+          <i class="fas fa-bookmark me-2"></i> Subscriptions
+        </a>
+      </li>
       <li class="nav-item">
         <a class="sidebar-link {% if active_menu == 'summary' %}active{% endif %}" href="{% url 'att_summary' %}" data-page="settings">
           <i class="fas fa-chart-bar me-2"></i>Summary
