@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
-from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate, TicketForm, SubscribedForm
+from .forms import LoginForm, ParkingLotForm, SubscriptionForm, ParkingSpaceForm, ParkingSpaceFormUpdate, TicketForm, SubscribedForm, ContactForm
 from .models import User, ParkingLot, Subscription, ParkingSpace, Ticket, Subscribed
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -41,6 +41,41 @@ def parkingH(request, parking_id):
         'parkinglots': parkinglots,
     }
     return render(request, 'parking_details.html', context)
+
+
+def contact_view(request):
+    parkinglots = ParkingLot.objects.all()
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Save the form data
+            contact_message = form.save()
+
+            # Render the email template
+            html_message = render_to_string('email_templates/confirmation_email.html', {
+                'name': contact_message.name,
+                'message': contact_message.message,
+                'year': datetime.now().year,
+            })
+
+            # Send the HTML email
+            email = EmailMessage(
+                subject="Thank you for contacting us!",
+                body=html_message,
+                from_email="no-reply@carparking.com",  # Replace with your email
+                to=[contact_message.email],
+            )
+            email.content_subtype = "html"  # Specify the email type as HTML
+            email.send()
+
+            # Show success message
+            messages.success(request, 'Your message has been sent successfully! A confirmation email has been sent to your inbox.')
+            return redirect('contact')
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form, 'parkinglots': parkinglots,})
 
 def unauthorized(request):
     return render(request, 'unauthorized.html')

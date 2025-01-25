@@ -1,5 +1,5 @@
 from django import forms
-from .models import ParkingLot, User, Subscription, ParkingSpace, Ticket, Subscribed
+from .models import ParkingLot, User, Subscription, ParkingSpace, Ticket, Subscribed, ContactMessage
 import re 
 
 
@@ -137,4 +137,14 @@ class SubscribedForm(forms.ModelForm):
             raise forms.ValidationError("End date must be after the start date.")
         
         return cleaned_data
-    
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'message']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your full name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email address'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write your message here...', 'rows': 5}),
+        }
