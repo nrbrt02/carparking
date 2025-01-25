@@ -1,8 +1,25 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
-
+{% load static %}
+<footer class="py-4 bg-light mt-auto">
+  <div class="container-fluid px-4">
+      <div class="d-flex align-items-center justify-content-between small">
+          <div class="text-muted">Copyright &copy; Your Website 2023</div>
+          <div>
+              <a href="#">Privacy Policy</a>
+              &middot;
+              <a href="#">Terms &amp; Conditions</a>
+          </div>
+      </div>
+  </div>
+</footer>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="{% static 'js/datatables-simple-demo.js' %}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
       // const showModal = `{{ show_modal|yesno:"true,false" }}`;
@@ -28,142 +45,6 @@
         .querySelector(".main-content")
         .classList.toggle("sidebar-collapsed");
     });
-
-  // Active Navigation
-  // document.querySelectorAll(".sidebar-link").forEach((link) => {
-  //   link.addEventListener("click", function (e) {
-  //     e.preventDefault();
-  //     document
-  //       .querySelectorAll(".sidebar-link")
-  //       .forEach((l) => l.classList.remove("active"));
-  //     this.classList.add("active");
-  //   });
-  // });
-
-  //   // Revenue Chart
-  //   const revenueCtx = document
-  //     .getElementById("revenueChart")
-  //     .getContext("2d");
-  //   const revenueChart = new Chart(revenueCtx, {
-  //     type: "line",
-  //     data: {
-  //       labels: [
-  //         "Jan",
-  //         "Feb",
-  //         "Mar",
-  //         "Apr",
-  //         "May",
-  //         "Jun",
-  //         "Jul",
-  //         "Aug",
-  //         "Sep",
-  //         "Oct",
-  //         "Nov",
-  //         "Dec",
-  //       ],
-  //       datasets: [
-  //         {
-  //           label: "Revenue 2024",
-  //           data: [
-  //             30000, 35000, 32000, 40000, 38000, 45000, 42000, 47000, 49000,
-  //             52000, 55000, 58000,
-  //           ],
-  //           borderColor: "#0d6efd",
-  //           backgroundColor: "rgba(13, 110, 253, 0.1)",
-  //           fill: true,
-  //           tension: 0.4,
-  //         },
-  //         {
-  //           label: "Revenue 2023",
-  //           data: [
-  //             25000, 29000, 28000, 35000, 32000, 38000, 37000, 40000, 42000,
-  //             45000, 48000, 50000,
-  //           ],
-  //           borderColor: "#6c757d",
-  //           borderDash: [5, 5],
-  //           tension: 0.4,
-  //         },
-  //       ],
-  //     },
-  //     options: {
-  //       responsive: true,
-  //       maintainAspectRatio: false,
-  //       plugins: {
-  //         legend: {
-  //           position: "top",
-  //         },
-  //         tooltip: {
-  //           mode: "index",
-  //           intersect: false,
-  //           callbacks: {
-  //             label: function (context) {
-  //               let label = context.dataset.label || "";
-  //               if (label) {
-  //                 label += ": ";
-  //               }
-  //               if (context.parsed.y !== null) {
-  //                 label += new Intl.NumberFormat("en-US", {
-  //                   style: "currency",
-  //                   currency: "USD",
-  //                 }).format(context.parsed.y);
-  //               }
-  //               return label;
-  //             },
-  //           },
-  //         },
-  //       },
-  //       scales: {
-  //         y: {
-  //           beginAtZero: true,
-  //           ticks: {
-  //             callback: function (value) {
-  //               return "$" + value.toLocaleString();
-  //             },
-  //           },
-  //         },
-  //       },
-  //       interaction: {
-  //         mode: "nearest",
-  //         axis: "x",
-  //         intersect: false,
-  //       },
-  //     },
-  //   });
-
-  //   // Traffic Sources Chart
-  //   const trafficCtx = document
-  //     .getElementById("trafficChart")
-  //     .getContext("2d");
-  //   new Chart(trafficCtx, {
-  //     type: "doughnut",
-  //     data: {
-  //       labels: ["Direct", "Social", "Referral", "Organic"],
-  //       datasets: [
-  //         {
-  //           data: [35, 30, 20, 15],
-  //           backgroundColor: ["#0d6efd", "#198754", "#ffc107", "#dc3545"],
-  //           borderWidth: 0,
-  //         },
-  //       ],
-  //     },
-  //     options: {
-  //       responsive: true,
-  //       maintainAspectRatio: false,
-  //       plugins: {
-  //         legend: {
-  //           position: "bottom",
-  //         },
-  //         tooltip: {
-  //           callbacks: {
-  //             label: function (context) {
-  //               return context.label + ": " + context.parsed + "%";
-  //             },
-  //           },
-  //         },
-  //       },
-  //       cutout: "65%",
-  //     },
-  //   });
 
   // Period Selection Buttons
   document.querySelectorAll(".btn-group .btn").forEach((button) => {
@@ -250,3 +131,4 @@
     });
   });
 </script>
+</body>

@@ -1,46 +1,52 @@
-{% load static %}
-<div class="col-md-3 col-lg-2 d-md-block sidebar" id="sidebar">
-  <div class="position-sticky pt-3">
-    <div class="user-info d-flex align-items-center">
-      <img src="{% static 'img/pngwing.com.png' %}" alt="User" class="rounded-circle" />
-      <div>
-        <div class="fw-bold">Administrator</div>
-        <div class="fw-bold">{{ user.username }}</div>
-        <small>{{ user.email }}</small>
+<div id="layoutSidenav_nav">
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+          <div class="nav">
+              <div class="sb-sidenav-menu-heading">Core</div>
+              <a class="nav-link" href="{% url 'dashboard' %}">
+                  <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                  Dashboard
+              </a>
+              <div class="sb-sidenav-menu-heading">Management</div>
+              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                  <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                  Parking
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                  <nav class="sb-sidenav-menu-nested nav">
+                      <a class="nav-link" href="{% url 'parking' %}">All Parking lots</a>
+                      <a class="nav-link" href="{% url 'create_parking_lot' %}">Add new</a>
+                  </nav>
+              </div>
+
+              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                <div class="sb-nav-link-icon"><i class="fas fa-dollar"></i></div>
+                Subscriptions
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" href="{% url 'subscriptions' %}">All Subscriptions</a>
+                    <a class="nav-link" href="{% url 'create_subscription' %}">Add new</a>
+                </nav>
+            </div>
+
+              
+              <div class="sb-sidenav-menu-heading">Addons</div>
+              <a class="nav-link" href="charts.html">
+                  <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                  Charts
+              </a>
+              <a class="nav-link" href="tables.html">
+                  <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                  Tables
+              </a>
+          </div>
       </div>
-    </div>
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="sidebar-link {% if active_menu == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}" data-page="dashboard">
-          <i class="fas fa-home me-2"></i> Dashboard
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="sidebar-link {% if active_menu == 'parking' %}active{% endif %}" href="{% url 'parking' %}" data-page="analytics">
-          <i class="fas fa-chart-bar me-2"></i> Parking Lots
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="sidebar-link {% if active_menu == 'subscriptions' %}active{% endif %}" href="{% url 'subscriptions' %}" data-page="analytics">
-          <i class="fas fa-dollar me-2"></i> Subscriptions
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="sidebar-link {% if active_menu == 'parkingspace' %}active{% endif %}" href="{% url 'parkingspace' %}" data-page="analytics">
-          <i class="fas fa-location-dot me-2"></i> Parking Spaces
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="sidebar-link {% if active_menu == 'uaccounts' %}active{% endif %}" href="{% url 'uaccounts' %}" data-page="users">
-          <i class="fas fa-users me-2"></i> Accounts
-        </a>
-      </li>
-     
-      <li class="nav-item">
-        <a class="sidebar-link {% if active_menu == 'settings' %}active{% endif %}" href="#" data-page="settings">
-          <i class="fas fa-cog me-2"></i> Settings
-        </a>
-      </li>
-    </ul>
-  </div>
+      <div class="sb-sidenav-footer">
+          <div class="small">Logged in as:</div>
+          {{ request.user.role }}
+      </div>
+  </nav>
 </div>

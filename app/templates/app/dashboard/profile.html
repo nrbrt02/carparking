@@ -4,7 +4,13 @@
 {% block title %}Dashboard - User Pofile{% endblock %}
 
 {% block content %}
-<div class="content">
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+            <li class="breadcrumb-item active">Profile</li>
+        </ol>
+        <hr>
     <div class="row">
         <h2>Update your profile</h2>
         <!-- Left Sidebar -->

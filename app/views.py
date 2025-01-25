@@ -10,7 +10,7 @@ from .decorators import admin_required, attendants_required, client_required, ad
 import random
 from django.utils import timezone
 from django.db import models
-from django.db.models import Q, Sum, F
+from django.db.models import Q, Sum, F, ProtectedError
 from django.http import HttpResponse, JsonResponse
 from datetime import timedelta, datetime
 from django.utils.timezone import now
@@ -578,11 +578,15 @@ def update_parking_lot(request, pk):
 def delete_parking_lot(request, pk):
     parking_lot = get_object_or_404(ParkingLot, pk=pk)
     if request.method == "POST":
-        parking_lot.delete()
-        messages.success(request, "Parking lot deleted successfully.")
-        return redirect("parking")  # Update with your list view URL name
-    return render(request, "dashboard/delete_parking_lot.html", {"parking_lot": parking_lot, 'active_menu': 'parking'})
+        try:
+            parking_lot.delete()
+            messages.success(request, "Parking lot deleted successfully.")
+            return redirect("parking")  # Update with your list view URL name
+        except ProtectedError:
+            messages.error(request, "This parking lot cannot be deleted because it is associated with existing parking spaces.")
+            return redirect("parking")  # Redirect back to the list view or appropriate page
 
+    return render(request, "dashboard/delete_parking_lot.html", {"parking_lot": parking_lot, 'active_menu': 'parking'})
 
 @login_required
 @admin_required
@@ -604,9 +608,11 @@ def create_subscription(request):
             form.save()
             messages.success(request, "Subscription created successfully!")
             return redirect("subscriptions")
+        else:
+            messages.error(request, "There were errors in your submission. Please correct them.")
     else:
         form = SubscriptionForm()
-    
+
     return render(request, "dashboard/create_subscription.html", {"form": form, 'active_menu': 'subscriptions'})
 
 

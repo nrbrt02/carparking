@@ -1,151 +1,69 @@
-{% load static %}
-{% load humanize %}
-<div class="col-md-3 col-lg-2 d-md-block sidebar" id="sidebar">
-  <div class="position-sticky pt-3">
-    <div class="user-info d-flex align-items-center">
-      <img src="{% static 'img/pngwing.com.png' %}" alt="User" class="rounded-circle" />
-      <div>
-        <div class="fw-bold">Client</div>
-        <div class="fw-bold">{{ user.username }}</div>
-        <small>{{ user.email }}</small>
-      </div>
-    </div>
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="sidebar-link active" href="{% url 'dashboard' %}" data-page="dashboard">
-          <i class="fas fa-home me-2"></i> Dashboard
-        </a>
-      </li>
-    </ul>
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Core</div>
+                <a class="nav-link" href="index.html">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+                <div class="sb-sidenav-menu-heading">Interface</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Layouts
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="layout-static.html">Static Navigation</a>
+                        <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                    </nav>
+                </div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    Pages
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                            Authentication
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="login.html">Login</a>
+                                <a class="nav-link" href="register.html">Register</a>
+                                <a class="nav-link" href="password.html">Forgot Password</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                            Error
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="401.html">401 Page</a>
+                                <a class="nav-link" href="404.html">404 Page</a>
+                                <a class="nav-link" href="500.html">500 Page</a>
+                            </nav>
+                        </div>
+                    </nav>
+                </div>
+                <div class="sb-sidenav-menu-heading">Addons</div>
+                <a class="nav-link" href="charts.html">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    Charts
+                </a>
+                <a class="nav-link" href="tables.html">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Tables
+                </a>
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            {{ request.user.role }}
+        </div>
+    </nav>
   </div>
-</div>
-
-
-<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="subscriptionModalLabel">My Subscription</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="subscriptionModalBody">
-
-              {% if active_subscription %}
-                  <p><strong>Parking Lot:</strong> {{ active_subscription.parking_space.parking_lot }}</p>
-                  <p><strong>Parking Space:</strong> {{ active_subscription.parking_space.space_code }}</p>
-                  <p><strong>Car Plate:</strong> {{ active_subscription.plate }}</p>
-                  <p><strong>Start Date:</strong> {{ active_subscription.start_date|date:"SHORT_DATETIME_FORMAT" }} ({{ active_subscription.start_date|naturaltime }})</p>
-                  <p><strong>End Date:</strong> {{ active_subscription.end_date|date:"SHORT_DATETIME_FORMAT" }} ({{ active_subscription.end_date|naturaltime }})</p>
-                  <p><strong>Total Cost:</strong> {{ active_subscription.total_cost }} RWF</p>
-                  <p><strong>Payment Status:</strong> {{ active_subscription.payment_status|yesno:"Paid,Not Paid" }}</p>
-                  <button onclick="window.print()" class="print-btn btn btn-primary">Print Receipt</button>
-              {% else %}
-                  <p class="alert alert-primary">You do not have an active subscription. Make One</p>
-                  <form method="post" action="{% url 'start_subscription' %}" id="subscriptionForm">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="parking_lot" class="form-label">Parking Lot</label>
-                        <select class="form-select" name="parking_lot" id="parking_lot" required>
-                            <option value="" selected>-- Select Parking Lot --</option>
-                            {% for lot in parking_lots %}
-                                <option value="{{ lot.id }}" {% if form.cleaned_data.parking_lot == lot.id %}selected{% endif %}>
-                                    {{ lot.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="parking_space" class="form-label">Parking Space</label>
-                        <select class="form-select" name="parking_space" id="parking_space" required>
-                            <option value="">-- Select Parking Space --</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="car_plate" class="form-label">Car Plate</label>
-                        <input type="text" class="form-control" id="car_plate" name="plate" maxlength="9" required>
-                        {% if form.plate.errors %}
-                            <div class="text-danger">{{ form.plate.errors|join:", " }}</div>
-                        {% else %}
-                            <p>Plate number needs to be formatted like AAA 000 A</p>
-                        {% endif %}
-                    </div>
-                    <div class="mb-3">
-                        <label for="subscription_time" class="form-label">Subscription Time</label>
-                        <select class="form-select" name="subscription_time" id="subscription_time" required>
-                            <option value="7">1 Week</option>
-                            <option value="14">2 Weeks</option>
-                            <option value="30">1 Month</option>
-                            <option value="60">2 Months</option>
-                            <option value="90">3 Months</option>
-                        </select>
-                    </div>
-                    <div id="formErrors" class="text-danger mb-3"></div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                
-              {% endif %}
-          </div>
-      </div>
-  </div>
-</div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-      const modalOpen = "{{ modal_open|yesno:'true,false' }}";
-      if (modalOpen === "true") {
-          const subscriptionModal = new bootstrap.Modal(document.getElementById("subscriptionModal"));
-          subscriptionModal.show();
-      }
-  });
-</script>
-
-
-
-<script>
-  document.getElementById("parking_lot").addEventListener("change", function () {
-    const parkingLotId = this.value;
-    const parkingSpaceSelect = document.getElementById("parking_space");
-
-    if (!parkingLotId) {
-        parkingSpaceSelect.innerHTML = '<option value="">-- Select Parking Space --</option>';
-        return;
-    }
-
-    fetch(`/get-available-parking-spaces/${parkingLotId}/`)
-        .then((response) => response.json())
-        .then((data) => {
-            parkingSpaceSelect.innerHTML = '<option value="">-- Select Parking Space --</option>';
-            data.forEach((space) => {
-                const option = document.createElement("option");
-                option.value = space.id;
-                option.textContent = `${space.space_code} (Price:  ${space.subscription}/hour)`;
-                parkingSpaceSelect.appendChild(option);
-            });
-        })
-        .catch((error) => {
-            console.error("Error fetching parking spaces:", error);
-        });
-});
-
-  </script>
-
-  <script>
- document.getElementById("subscriptionForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const form = e.target;
-    fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-    })
-        .then(response => {
-            if (response.ok) return response.text();
-            throw new Error("Failed to fetch form");
-        })
-        .then(html => {
-            document.getElementById("subscriptionModalBody").innerHTML = html;
-        })
-        .catch(error => console.error("Error:", error));
-});
-
-  </script>
-  

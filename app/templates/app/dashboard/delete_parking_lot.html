@@ -4,8 +4,15 @@
 {% block title %}Delete Parking - Car Parking System{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2><i class="fas fa-circle-xmark"></i>Delete Parking Lot</h2>
+<div class="container-fluid px-4">
+  <h1 class="mt-4"><i class="fas fa-circle-xmark"></i>Delete Parking Lot</h1>
+      <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+          <li class="breadcrumb-item"><a href="{% url 'parking' %}">Parking</a></li>
+          <li class="breadcrumb-item ">Delete</li>
+          <li class="breadcrumb-item active">{{ parking_lot.name }}</li>
+      </ol>
+      <hr>
     <p>Are you sure you want to delete the parking lot <strong>{{ parking_lot.name }}</strong>?</p>
     
     <form method="POST" action="">
