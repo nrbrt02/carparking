@@ -21,8 +21,26 @@ from django.template.loader import render_to_string
 
 
 def home(request):
-    return render(request, 'index.html')
+    parkinglots = ParkingLot.objects.all()
+    return render(request, 'index.html', {'parkinglots': parkinglots, 'active_menu': 'home'})
 
+def parkingH(request, parking_id):
+    parking_lot = get_object_or_404(ParkingLot, id=parking_id)
+    parking_spaces = parking_lot.parking_spaces.all()
+
+    # Calculate percentage of fullness
+    total_spaces = parking_spaces.count()
+    occupied_spaces = parking_spaces.filter(status=True).count()  # Status True = occupied
+    fullness_percentage = (occupied_spaces / total_spaces) * 100 if total_spaces > 0 else 0
+    parkinglots = ParkingLot.objects.all()
+    context = {
+        'parking_lot': parking_lot,
+        'parking_spaces': parking_spaces,
+        'fullness_percentage': round(fullness_percentage, 2),
+        'active_menu': 'parkingH',
+        'parkinglots': parkinglots,
+    }
+    return render(request, 'parking_details.html', context)
 
 def unauthorized(request):
     return render(request, 'unauthorized.html')

@@ -8,6 +8,9 @@ urlpatterns = [
     path('unauthorized', views.unauthorized, name="unauthorized"),
     path('logout', views.logoutuser, name="logoutuser"),
     path('signup', views.signup, name="signup"),
+    path('parking/<int:parking_id>', views.parkingH, name="parkingH"),
+
+
     path('dashboard/', views.dashboard, name="dashboard"),
     path('dashboard/uaccounts/profile', views.profile, name="profile"),
     path('dashboard/uaccounts', views.uaccounts, name="uaccounts"),
