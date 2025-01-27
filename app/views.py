@@ -603,6 +603,7 @@ def subscriptions(request):
 @admin_required
 def create_subscription(request):
     if request.method == "POST":
+        print("Submited terms: "+request.POST.get("terms"))  # Debug: Check if the value is being sent
         form = SubscriptionForm(request.POST)
         if form.is_valid():
             form.save()
@@ -645,10 +646,13 @@ def subscription_view(request, pk):
     # Handle deletion
     if request.method == "POST":
         if "delete" in request.POST:  # Check if the delete button was clicked
-            subscription.delete()
-            messages.success(request, "Subscription deleted successfully!")
-            return redirect('subscriptions')
-
+            try:
+                subscription.delete()
+                messages.success(request, "Subscription deleted successfully!")
+                return redirect('subscriptions')
+            except ProtectedError:
+                messages.error(request, "Cannot delete this subscription because it is in use or referenced by other entities.")
+    
     return render(request, 'dashboard/view_sub.html', {
         'subscription': subscription,
         'active_menu': 'subscriptions'
@@ -741,9 +745,12 @@ def delete_parking_space(request, pk):
     # Handle deletion
     if request.method == "POST":
         if "delete" in request.POST:  # Check if the delete button was clicked
-            parking_space.delete()
-            messages.success(request, "Parking space deleted successfully!")
-            return redirect('parkingspace')
+            try:
+                parking_space.delete()
+                messages.success(request, "Parking space deleted successfully!")
+                return redirect('parkingspace')
+            except ProtectedError:
+                messages.error(request, "Cannot delete this parking space because it is in use or referenced by other entities.")
 
     return render(request, 'dashboard/view_parking_space.html', {
         'parking_space': parking_space,

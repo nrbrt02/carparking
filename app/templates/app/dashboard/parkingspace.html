@@ -1,68 +1,75 @@
 {% extends 'dashboard/base.html' %}
-{% block title %}Dashboard - Car Parking System{% endblock %}
+{% block title %}Parking spaces- Dashboard{% endblock %}
 
-<!-- Sidebar -->
-
-
-<!-- Main Content -->
-<!-- Top Navbar -->
-
-
-<!-- Dashboard Content -->
 {% block content %}
-<div class="content">
+                    <div class="container-fluid px-4">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="mt-4"><i class="fas fa-table me-1"></i>Parking Spaces</h1>
+                        <a href="{% url 'create_parking_space' %}" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Add New</a>
+                      </div>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item "><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'parkingspace' %}">Parking Space</a></li>
+                            <li class="breadcrumb-item active">All</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                All Parking Spaces
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Parking Lot</th>
+                                            <th>Subscription</th>
+                                            <th>Space Code</th>
+                                            <th>Type</th>
+                                            <th>Occupaide</th>
+                                            <th>Created</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Parking Lot</th>
+                                            <th>Subscription</th>
+                                            <th>Space Code</th>
+                                            <th>Type</th>
+                                            <th>Occupaide</th>
+                                            <th>Created</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for parkspace in parkingspaces %}
+                                        <tr>
+                                            <td>{{ parkspace.id }}</td>
+                                            <td>{{ parkspace.parking_lot }}</td>
+                                            <td>{{ parkspace.subscription }}</td>
+                                            <td>{{ parkspace.space_code }}</td>
+                                            <td>{{ parkspace.type}}</td>
+                                            <td>{{ parkspace.status}}</td>
+                                            <td>{{ parkspace.created_at}}</td>
+                                            <td>
+                                                <a href="{% url 'update_parking_space' parkspace.pk %}"><i class="fas fa-pencil text-info"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a href="{% url 'delete_parking_space' parkspace.pk %}"><i class="fas fa-trash text-danger"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="9" class="text-center">No Parking Space found</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                
+                {% endblock %}
 
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title"><i class="fas fa-list"></i> Manage All Parking Spaces</h5>
-        <a href="{% url 'create_parking_space' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a> <!-- Link to Add User page -->
-    </div>
-<br>
-            <div class="table-responsive">
-                <table class="table table-hover" id="activityTable">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Parking Lot</th>
-                            <th>Subscription</th>
-                            <th>Space Code</th>
-                            <th>Type</th>
-                            <th>Occupaide</th>
-                            <th>Created</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for parkspace in parkingspaces %}
-                        <tr>
-                            <td>{{ parkspace.id }}</td>
-                            <td>{{ parkspace.parking_lot }}</td>
-                            <td>{{ parkspace.subscription }}</td>
-                            <td>{{ parkspace.space_code }}</td>
-                            <td>{{ parkspace.type}}</td>
-                            <td>{{ parkspace.status}}</td>
-                            <td>{{ parkspace.created_at}}</td>
-                            <td>
-                                <a href="{% url 'update_parking_space' parkspace.pk %}"><i class="fas fa-pencil text-info"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="{% url 'delete_parking_space' parkspace.pk %}"><i class="fas fa-trash text-danger"></i></a>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="9" class="text-center">No Parking Space found</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-{% endblock %}
-</body>
-
-</html>

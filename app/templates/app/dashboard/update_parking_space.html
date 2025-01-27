@@ -3,11 +3,13 @@
 
 {% block content %}
 
-<div class="content">
-    <div class="card">
-        <div class="card-body">
-            <h3><i class="fas fa-circle-plus"></i> Update a Parking Space</h3>
-            
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-circle-plus"></i> Update Parking Space</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+            <li class="breadcrumb-item "><a href="{% url 'parkingspace' %}">Parking Space</a></li>
+            <li class="breadcrumb-item ">Update</li>
+        </ol>
             <form method="POST" action="">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -34,8 +36,6 @@
                 <button type="submit" class="btn btn-primary"><i class="fas fa-circle-plus"></i> Create Parking Space</button>
             </form>
         </div>
-    </div>
-</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

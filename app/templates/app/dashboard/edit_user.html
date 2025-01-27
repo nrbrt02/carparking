@@ -4,7 +4,13 @@
 {% block title %}Edit Account - Car Parking System{% endblock %}
 
 {% block content %}
-<div class="content">
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-circle-plus"></i> Edit a User Account</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+            <li class="breadcrumb-item "><a href="{% url 'uaccounts' %}">Accounts</a></li>
+            <li class="breadcrumb-item active">Edit</li>
+        </ol>
     <h3>Edit Account</h3>
     <form method="POST">
         {% csrf_token %}

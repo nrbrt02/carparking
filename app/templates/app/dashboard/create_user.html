@@ -4,8 +4,13 @@
 {% block title %}Create Account - Car Parking System{% endblock %}
 
 {% block content %}
-<div class="content">
-    <h3><i class="fas fa-circle-plus"></i> Create Account</h3>
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-circle-plus"></i> Create a User Account</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+            <li class="breadcrumb-item "><a href="{% url 'uaccounts' %}">Accounts</a></li>
+            <li class="breadcrumb-item active">Create</li>
+        </ol>
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">

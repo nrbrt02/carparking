@@ -113,7 +113,7 @@ class ParkingLot(models.Model):
         
 class ParkingSpace(models.Model):
     parking_lot = models.ForeignKey('ParkingLot', on_delete=models.PROTECT, related_name='parking_spaces')
-    subscription = models.ForeignKey('Subscription', on_delete=models.SET_NULL, null=True, blank=True)
+    subscription = models.ForeignKey('Subscription', on_delete=models.PROTECT, null=True, blank=True)
     space_code = models.CharField(max_length=6, unique=True)
     type = models.CharField(max_length=20, choices=SPACE_TYPE_CHOICES, default='REGULAR')
     status = models.BooleanField(default=False)
