@@ -27,7 +27,8 @@ urlpatterns = [
     path("dashboard/subscriptions/create/", views.create_subscription, name="create_subscription"),
     path('dashboard/subscriptions/update/<int:subscription_id>/', views.update_subscription, name='update_subscription'),
     path('dashboard/subscription/<int:pk>/', views.subscription_view, name='subscription_view'),
-
+    path('dashboard/subscriptions/', views.subscription_list, name='subscription_list'),
+    
     path('dashboard/parkingspace', views.parkingspace, name="parkingspace"),
     path('dashboard/parkingspace/create/', views.create_parking_space, name='create_parking_space'),
     path('dashboard/parkingspace/update/<int:pk>/', views.update_parking_space, name='update_parking_space'),
@@ -37,6 +38,7 @@ urlpatterns = [
 
     path('dashboard/create-ticket/', views.create_ticket, name='create_ticket'),
     path('dashboard/att-tickets/', views.att_tickets, name='att_tickets'),
+    path('dashboard/tickets/', views.allticket, name='allticket'),
     path('dashboard/tickets/<int:ticket_id>/end/', views.end_ticket, name='end_ticket'),
     path('dashboard/tickets/<int:ticket_id>/print/', views.print_receipt, name='print_receipt'),
     path('dashboard/tickets/<int:ticket_id>/change-payment-status/', views.change_payment_status, name='change_payment_status'),

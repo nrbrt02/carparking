@@ -1,143 +1,105 @@
 {% extends 'dashboard/base.html' %}
-{% block title %}Subscriptions - Car Parking System{% endblock %}
-
+{% block title %}Summary- Dashboard{% endblock %}
 {% load humanize %}
-
 {% block content %}
+                    <div class="container-fluid px-4">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="mt-4"><i class="fas fa-chart-area me-1"></i>Your Summary</h1>
+                        <select id="summary-options" class="form-control" style="width: 200px;">
+                            <option value="" selected>--Select Option--</option>
+                            <option value="tickets">Tickets</option>
+                            <option value="income">Income</option>
+                            <option value="this_month">This Month</option>
+                            <option value="general">General</option>
+                        </select>
+                      </div>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item "><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+                            <li class="breadcrumb-item active">Summary</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Your Summary
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Parking Space</th>
+                                            <th>Name</th>
+                                            <th>Plate</th>
+                                            <th>Entry Time</th>
+                                            <th>Exit Time</th>
+                                            <th>Total Payment</th>
+                                            <th>Payment Status</th>
+                                            <th>Created</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Parking Space</th>
+                                            <th>Name</th>
+                                            <th>Plate</th>
+                                            <th>Entry Time</th>
+                                            <th>Exit Time</th>
+                                            <th>Total Payment</th>
+                                            <th>Payment Status</th>
+                                            <th>Created</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for ticket in tickets %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ ticket.parking_space.space_code }}</td>
+                                            <td>{{ ticket.name|default:"N/A" }}</td>
+                                            <td>{{ ticket.plate }}</td>
+                                            <td>{{ ticket.entry_time|date:"Y-m-d H:i:s" }}</td>
+                                            <td>{{ ticket.exit_time|date:"Y-m-d H:i:s"|default:"N/A" }}</td>
+                                            <td>{{ ticket.total_payment }} RWF</td>
+                                            <td>{{ ticket.payment_status|yesno:"Paid,Not Yet" }}</td>
+                                            <td>{{ ticket.created_at|naturaltime }}</td>
+                                            <!-- End Ticket button if exit_time is null -->
+                                            {% if not ticket.exit_time %}
+                                            <td>
+                                                <a href="{% url 'end_ticket' ticket.id %}" class="btn btn-warning btn-sm">
+                                                    End Ticket
+                                                </a>
+                                            </td>
+                                            {% elif not ticket.payment_status %}
+                                            <td>
+                                                <a href="{% url 'change_payment_status' ticket.id %}" class="btn btn-success btn-sm">
+                                                    <i class="fas fa-circle-check"></i> Change to Paid
+                                                </a>
+                                            </td>
+                                            
+                                            {% elif ticket.payment_status %}
+                                            <td>
+                                                <a href="{% url 'print_receipt' ticket.id %}" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-print"></i> Print
+                                                </a>
+                                            </td>
+                                            {% else %}
+                                            <td></td>
+                                            {% endif %}
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="10" class="text-center">No tickets found.</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+              
+                {% endblock %}
 
-    <div class="content">
-        <div class="card">
-            <div class="col-12" id="summary-result">
-                <!-- Results will be dynamically injected here -->
-            </div>
-            <div class="card-body">
-    <div class="d-flex justify-content-between align-items-center">
-        <h5 class="card-title"><i class="fas fa-list"></i> Summary</h5>
-        <select id="summary-options" class="form-control" style="width: 200px;">
-            <option value="" selected>--Select Option--</option>
-            <option value="tickets">Tickets</option>
-            <option value="income">Income</option>
-            <option value="this_month">This Month</option>
-            <option value="general">General</option>
-        </select>
-        
-        
-        
-    </div>
-<br>
-              <div class="table-responsive">
-                <table class="table" id="activityTable">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Parking Space</th>
-                            <th>Name</th>
-                            <th>Plate</th>
-                            <th>Entry Time</th>
-                            <th>Exit Time</th>
-                            <th>Total Payment</th>
-                            <th>Payment Status</th>
-                            <th>Created</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for ticket in tickets %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ ticket.parking_space.space_code }}</td>
-                            <td>{{ ticket.name|default:"N/A" }}</td>
-                            <td>{{ ticket.plate }}</td>
-                            <td>{{ ticket.entry_time|date:"Y-m-d H:i:s" }}</td>
-                            <td>{{ ticket.exit_time|date:"Y-m-d H:i:s"|default:"N/A" }}</td>
-                            <td>{{ ticket.total_payment }} RWF</td>
-                            <td>{{ ticket.payment_status|yesno:"Paid,Not Yet" }}</td>
-                            <td>{{ ticket.created_at|naturaltime }}</td>
-                            <!-- End Ticket button if exit_time is null -->
-                            {% if not ticket.exit_time %}
-                            <td>
-                                <a href="{% url 'end_ticket' ticket.id %}" class="btn btn-warning btn-sm">
-                                    End Ticket
-                                </a>
-                            </td>
-                            {% elif not ticket.payment_status %}
-                            <td>
-                                <a href="{% url 'change_payment_status' ticket.id %}" class="btn btn-success btn-sm">
-                                    <i class="fas fa-circle-check"></i> Change to Paid
-                                </a>
-                            </td>
-                            
-                            {% elif ticket.payment_status %}
-                            <td>
-                                <a href="{% url 'print_receipt' ticket.id %}" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-print"></i> Print
-                                </a>
-                            </td>
-                            {% else %}
-                            <td></td>
-                            {% endif %}
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="10" class="text-center">No tickets found.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    
-                </table>
-              </div>
-            </div>
-          </div>
-    </div>
-
-    <!-- Modal -->
-<div class="modal fade" id="summaryModal" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="summaryModalLabel">Summary</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="modal-summary-body">
-                <!-- Summary content will be dynamically injected here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-    <script>
-        document.getElementById("summary-options").addEventListener("change", function () {
-    const selectedOption = this.value;
-    const messageContainer = document.getElementById("modal-summary-body");
-
-    // Clear any previous messages in the modal body
-    messageContainer.innerHTML = "";
-
-    // If the user selects the default option, clear the message
-    if (!selectedOption) {
-        return; // Exit early if no option is selected
-    }
-
-    fetch(`/dashboard/att-summary/?option=${selectedOption}`)
-        .then(response => response.json())
-        .then(data => {
-            const message = data.message;
-            if (message) {
-                // Insert the response message into the modal's body
-                messageContainer.innerHTML = `<div class="alert alert-success"><h3><i class="fas fa-check-circle"></i> ${selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1)} Summary</h3> ${message}</div>`;
-                
-                // Show the modal after the content is inserted
-                $('#summaryModal').modal('show');
-            }
-        })
-        .catch(error => console.error("Error fetching summary data:", error));
-});
-
-    </script>
-    
-    
-{% endblock %}

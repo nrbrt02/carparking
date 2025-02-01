@@ -1,108 +1,87 @@
 {% extends 'dashboard/base.html' %}
-{% block title %}Subscriptions - Car Parking System{% endblock %}
-
-{% load humanize %}
+{% block title %}Subscribed - Dashboard{% endblock %}
 
 {% block content %}
-    <div class="content">
-        <div class="card">
-            <div class="card-body">
-    <div class="d-flex justify-content-between align-items-center">
-        <h5 class="card-title"><i class="fas fa-list"></i> All Subscriptions In Your Parking lot</h5>
-        
-    </div>
-<br>
-              <div class="table-responsive">
-                <table class="table" id="activityTable">
-                    <thead>
-                        <tr>
-                            <th>Client</th>
-                            <th>Parking Space</th>
-                            <th>Plate</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Status</th>
-                            <th>Payment Status</th>
-                            <th>Total Cost</th>
-                            <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% if subscriptions %}
-                        {% for subscription in subscriptions %}
-                            <tr>
-                                <td>{{ subscription.client.username }}</td>
-                                <td>{{ subscription.parking_space.space_code }}</td>
-                                <td>{{ subscription.plate }}</td>
-                                <td>{{ subscription.start_date|date:"Y-m-d H:i" }}</td>
-                                <td>{{ subscription.end_date|date:"Y-m-d H:i" }}</td>
-                                <td>{{ subscription.status }}</td>
-                                <td>
-                                    {% if subscription.payment_status %}
-                                        Paid
-                                    {% else %}
-                                        <a href="javascript:void(0);" 
-                                           class="btn btn-success btn-sm change-payment-status" 
-                                           data-id="{{ subscription.id }}">
-                                            <i class="fas fa-circle-check"></i> Change to Paid
-                                        </a>
-                                    {% endif %}
-                                </td>
-                                <td>{{ subscription.total_cost }} RWF</td>
-                                <td>
-                                    {% if subscription.payment_status %}
-                                        <a href="{% url 'print_subreceipt' subscription.id %}" 
-                                           class="btn btn-primary btn-sm" target="_blank">
-                                            <i class="fas fa-print"></i> Print Receipt
-                                        </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        {% else %}
-                        <p>No active subscriptions found for your parking spaces.</p>
-                        {% endif %}
-                    </tbody>
-                    
-                    
-                </table>
-              </div>
-            </div>
-          </div>
-    </div>
+                    <div class="container-fluid px-4">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="mt-4"><i class="fas fa-table me-1"></i>Subscribed</h1>
+                      </div>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item "><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+                            <li class="breadcrumb-item">Subscription</li>
+                            <li class="breadcrumb-item active">All</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                All subscribed clients
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Client</th>
+                                            <th>Parking Space</th>
+                                            <th>Plate</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                            <th>Payment Status</th>
+                                            <th>Total Cost</th>
+                                            <th>Created At</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Client</th>
+                                            <th>Parking Space</th>
+                                            <th>Plate</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                            <th>Payment Status</th>
+                                            <th>Total Cost</th>
+                                            <th>Created At</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% if subscriptions %}
+                                        {% for subscription in subscriptions %}
+                                            <tr>
+                                                <td>{{ subscription.client.username }}</td>
+                                                <td>{{ subscription.parking_space.space_code }}</td>
+                                                <td>{{ subscription.plate }}</td>
+                                                <td>{{ subscription.start_date|date:"Y-m-d H:i" }}</td>
+                                                <td>{{ subscription.end_date|date:"Y-m-d H:i" }}</td>
+                                                <td>{{ subscription.status }}</td>
+                                                <td>
+                                                    {% if subscription.payment_status %}
+                                                        Paid
+                                                    {% else %}
+                                                        <a href="{% url 'change_subpayment_status' subscription.id %}" onclick="alert('Are U sure to change?')" class="btn btn-success btn-sm" > <i class="fas fa-circle-check"></i> Change to Paid </a>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ subscription.total_cost }} RWF</td>
+                                                <td>{{ subscription.created_at }}</td>
+                                                <td>
+                                                    {% if subscription.payment_status %}
+                                                        <a href="{% url 'print_subreceipt' subscription.id %}"  class="btn btn-primary btn-sm" target="_blank"> <i class="fas fa-print"></i> Print Receipt </a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <p>No active subscriptions found for your parking spaces.</p>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            
+                {% endblock %}
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const buttons = document.querySelectorAll(".change-payment-status");
-    
-            buttons.forEach(button => {
-                button.addEventListener("click", function () {
-                    const subscriptionId = this.dataset.id;
-    
-                    fetch(`/dashboard/change-payment-status/${subscriptionId}/`, {
-                        method: "POST",
-                        headers: {
-                            "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token for security
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert(data.message);
-                            location.reload(); // Reload the page to reflect changes
-                        } else {
-                            alert(data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        alert("An error occurred. Please try again.");
-                    });
-                });
-            });
-        });
-    </script>
-    
-
-{% endblock %}

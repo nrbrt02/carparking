@@ -22,7 +22,10 @@ from django.template.loader import render_to_string
 
 def home(request):
     parkinglots = ParkingLot.objects.all()
+    Subscribed.objects.filter(end_date__lt=now(), status='ACTIVE').update(status='EXPIRED')
+
     return render(request, 'index.html', {'parkinglots': parkinglots, 'active_menu': 'home'})
+
 
 def parkingH(request, parking_id):
     parking_lot = get_object_or_404(ParkingLot, id=parking_id)
@@ -254,6 +257,13 @@ def send_subscription_email(user, subscription):
     email.content_subtype = "html"  # Send as HTML
     email.send()
 
+def get_unpaid_subscriptions_count(user):
+    """
+    Returns the count of unpaid subscriptions for the logged-in user (attendant).
+    """
+    parking_lots = ParkingLot.objects.filter(manager_1=user) | ParkingLot.objects.filter(manager_2=user)
+    parking_spaces = ParkingSpace.objects.filter(parking_lot__in=parking_lots)
+    return Subscribed.objects.filter(parking_space__in=parking_spaces, payment_status=False).count()
 
 def send_payment_status_email(subscription):
     subject = "Subscription Payment Status Updated"
@@ -313,7 +323,7 @@ def dashboard(request):
         # Fetch ticket statistics and recent tickets
         ticket_stats = get_ticket_statistics(request.user)
         tickets = get_recent_tickets(request.user)
-
+        unpaid_count = get_unpaid_subscriptions_count(request.user)
         return render(
             request,
             "dashboard/index.html",
@@ -323,6 +333,7 @@ def dashboard(request):
                 "parking_spaces": parking_spaces,
                 "form": form,
                 "modal_open": modal_open,
+                'unpaid_count': unpaid_count,
                 **ticket_stats,  # Spread the ticket statistics dictionary
             },
         )
@@ -379,13 +390,13 @@ def profile(request):
                 messages.success(request, "Your password has been updated!")
                 return redirect('profile')  # Redirect to the same page
 
-    # Set up the form data for GET requests (to show in the form)
+    unpaid_count = get_unpaid_subscriptions_count(request.user)
     context = {
         'first_name': request.user.first_name,
         'last_name': request.user.last_name,
         'email': request.user.email,
         'phone_number': request.user.phone_number,
-        'active_menu': 'uaccounts'
+        'unpaid_count': unpaid_count
     }
 
     return render(request, 'dashboard/profile.html', context)
@@ -428,6 +439,7 @@ def edit_user(request, user_id):
         messages.success(request, "User details updated successfully.")
         return redirect('uaccounts')  # Redirect to the accounts list
 
+    unpaid_count = get_unpaid_subscriptions_count(request.user)
     return render(request, 'dashboard/edit_user.html', {'user_to_edit': user_to_edit, 'active_menu': 'uaccounts'})
 
 
@@ -796,6 +808,8 @@ def create_ticket(request):
 def att_tickets(request):
     tickets = Ticket.objects.filter(parking_attendee=request.user)
     parking_spaces = get_user_parking_spaces(request.user)
+    unpaid_count = get_unpaid_subscriptions_count(request.user)
+
     return render(
         request,
         'dashboard/atttickets.html',
@@ -803,6 +817,7 @@ def att_tickets(request):
             'tickets': tickets,
             'active_menu': 'tickets',
             'parking_spaces': parking_spaces,
+            'unpaid_count': unpaid_count
         }
     )
 
@@ -820,13 +835,14 @@ def subscribed_parking_spaces(request):
     subscriptions = Subscribed.objects.filter(
         parking_space__in=parking_spaces,
     ).select_related('client', 'parking_space')
-
+    unpaid_count = get_unpaid_subscriptions_count(request.user)
     return render(
         request,
         "dashboard/attsubscriptions.html",
         {
             "active_menu": "subscription",
             "subscriptions": subscriptions,
+            "unpaid_count": unpaid_count,
         },
     )
 
@@ -837,51 +853,44 @@ def change_subpayment_status(request, subscription_id):
     subscription = get_object_or_404(Subscribed, id=subscription_id)
 
     if subscription.payment_status:
-        return JsonResponse({"success": False, "message": "Payment status already marked as Paid."})
+        messages.warning(request, "Ticket payment status already ok!")
+    else:
+        # Update payment status
+        subscription.payment_status = True
+        subscription.save()
+        send_payment_status_email(subscription)
+        messages.success(request, "Payment status updated successfully.")
 
-    # Update payment status
-    subscription.payment_status = True
-    subscription.save()
-
-    # Send email notification to the client
-    send_payment_status_email(subscription)
-
-    return JsonResponse({"success": True, "message": "Payment status updated successfully."})
+    return redirect(request.META.get('HTTP_REFERER', 'dashboard'))
 
 @login_required
 @attendants_required
 def end_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
 
-    # Ensure the ticket hasn't already been ended
     if not ticket.exit_time:
-        ticket.exit_time = timezone.now()  # Set the exit time to the current time
-
-        # Calculate the duration in hours as a float
+        ticket.exit_time = timezone.now()  
         duration = (ticket.exit_time - ticket.entry_time).total_seconds() / 3600
 
-        # Get the subscription price
-        subscription_price = ticket.parking_space.subscription.price  # Assuming this relationship exists
+        # Get the subscription price or set a default
+        subscription = ticket.parking_space.subscription
+        subscription_price = subscription.price if subscription else 500  # Default price
 
-        # Calculate the total payment
-        if duration < 1:
-            ticket.total_payment = subscription_price  # Charge the default price
-        else:
-            ticket.total_payment = round(duration * subscription_price, 2)  # Charge based on duration
+        # Calculate total payment
+        ticket.total_payment = subscription_price if duration < 1 else round(duration * subscription_price, 2)
 
-        # Mark the parking space as available
+        # Mark the space as available
         parking_space = ticket.parking_space
         parking_space.status = False
         parking_space.save()
 
-        # Save the updated ticket
         ticket.save()
-
         messages.success(request, f"Ticket ended successfully! Total payment: {ticket.total_payment} RWF")
     else:
         messages.error(request, "Ticket has already been ended.")
 
     return redirect('att_tickets')
+
 
 
 
@@ -997,6 +1006,8 @@ def attsummary(request):
 
     tickets = Ticket.objects.filter(parking_attendee=request.user)
     parking_spaces = get_user_parking_spaces(request.user)
+    unpaid_count = get_unpaid_subscriptions_count(request.user)
+
     return render(
         request,
         "dashboard/att_summary.html",
@@ -1004,6 +1015,7 @@ def attsummary(request):
             'tickets': tickets,
             'active_menu': 'summary',
             'parking_spaces': parking_spaces,
+            'unpaid_count': unpaid_count
         }
     )
 
@@ -1168,3 +1180,13 @@ def print_subreceipt(request, subscription_id):
         "dashboard/subreceipt.html",
         {"subscription": subscription},
     )
+
+@login_required
+def allticket(request):
+    tickets = Ticket.objects.all()
+    return render(request, "dashboard/atttickets.html", {'tickets': tickets})
+
+
+def subscription_list(request):
+    subscriptions = Subscribed.objects.all().order_by('-created_at')  # Fetch all subscriptions ordered by latest
+    return render(request, 'dashboard/subscribed-list.html', {'subscriptions': subscriptions})

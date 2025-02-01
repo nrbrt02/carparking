@@ -1,3 +1,4 @@
+{% load humanize %}
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
   <!-- Navbar Brand-->
   <a class="navbar-brand ps-3" href="{% url 'dashboard' %}">Car Parking</a>
@@ -7,14 +8,18 @@
   <!-- Navbar Search-->
 
   <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-    {% if request.user.role == "ATTENDANTS" %}
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTicketModal">New Ticket</button>&nbsp;&nbsp;&nbsp;
-    {% elif request.user.role == "CLIENT" %}
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscriptionModal">My Subscription</button>&nbsp;&nbsp;&nbsp;
-    {% elif request.user.role == "ADMIN" %}
-        
-    {% endif %}
+    
   </form>
+  {% if request.user.role == "ATTENDANTS" %}
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTicketModal">
+        New Ticket
+    </button>
+    
+    {% elif request.user.role == "CLIENT" %}
+    <button id="openSubscriptionModal" type="button" class="btn btn-primary">My Subscription</button>
+    {% else %}
+    
+    {% endif %}
   <!-- Navbar-->
   <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
       <li class="nav-item dropdown">
@@ -27,3 +32,4 @@
       </li>
   </ul>
 </nav>
+

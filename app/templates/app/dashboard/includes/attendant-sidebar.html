@@ -3,62 +3,25 @@
       <div class="sb-sidenav-menu">
           <div class="nav">
               <div class="sb-sidenav-menu-heading">Core</div>
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="{% url 'dashboard' %}">
                   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                   Dashboard
               </a>
-              <div class="sb-sidenav-menu-heading">Interface</div>
-              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                  <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                  Layouts
-                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-              </a>
-              <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                  <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                      <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                  </nav>
-              </div>
-              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                  <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                  Pages
-                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-              </a>
-              <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                  <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                          Authentication
-                          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                      </a>
-                      <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                          <nav class="sb-sidenav-menu-nested nav">
-                              <a class="nav-link" href="login.html">Login</a>
-                              <a class="nav-link" href="register.html">Register</a>
-                              <a class="nav-link" href="password.html">Forgot Password</a>
-                          </nav>
-                      </div>
-                      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                          Error
-                          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                      </a>
-                      <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                          <nav class="sb-sidenav-menu-nested nav">
-                              <a class="nav-link" href="401.html">401 Page</a>
-                              <a class="nav-link" href="404.html">404 Page</a>
-                              <a class="nav-link" href="500.html">500 Page</a>
-                          </nav>
-                      </div>
-                  </nav>
-              </div>
+              
               <div class="sb-sidenav-menu-heading">Addons</div>
-              <a class="nav-link" href="charts.html">
+              <a class="nav-link" href="{% url 'att_tickets' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-ticket"></i></div>
+                Ticktes
+            </a>
+            <a class="nav-link" href="{% url 'subscribed_parking_spaces' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
+                Subscribed &nbsp; <span class="badge text-bg-secondary">{{ unpaid_count }}</span>
+            </a>
+              <a class="nav-link" href="{% url 'att_summary' %}">
                   <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                  Charts
+                  Summary
               </a>
-              <a class="nav-link" href="tables.html">
-                  <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                  Tables
-              </a>
+              
           </div>
       </div>
       <div class="sb-sidenav-footer">
@@ -67,3 +30,79 @@
       </div>
   </nav>
 </div>
+
+
+
+
+<div class="modal fade {% if modal_open %}show{% endif %}" id="newTicketModal" tabindex="-1" aria-labelledby="newTicketModalLabel" aria-hidden="false" {% if modal_open %}style="display: block;"{% endif %}>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newTicketModalLabel">Create New Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="newTicketForm" method="POST" action="{% url 'create_ticket' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="parkingSpace" class="form-label">Parking Space</label>
+                        <select id="parkingSpace" name="parking_space" class="form-select" required>
+                            {% for space in parking_spaces %}
+                                <option value="{{ space.id }}" {% if form.parking_space.value == space.id %}selected{% endif %}>
+                                    {{ space.space_code }} - {{ space.parking_lot.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.parking_space.errors %}
+                            <div class="text-danger">{{ form.parking_space.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name (Optional)</label>
+                        <input type="text" id="name" name="name" class="form-control" value="{{ form.name.value }}">
+                        {% if form.name.errors %}
+                            <div class="text-danger">{{ form.name.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="plate" class="form-label">License Plate</label>
+                        <input type="text" id="plate" name="plate" class="form-control" value="{{ form.plate.value }}" required>
+                        {% if form.plate.errors %}
+                            <div class="text-danger">{{ form.plate.errors|join:", " }}</div>
+                        {% else  %}
+                          <p>Plate number needd to be formated like AAA 000 A</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+
+
+<!-- Summary Modal -->
+
+<div class="modal fade" id="summaryModal" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="summaryModalLabel">Summary</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-summary-body">
+                <!-- Summary content will be dynamically injected here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    

@@ -18,13 +18,9 @@
   {% include '../dashboard/includes/nav.html' %}
   <div id="layoutSidenav">
     {% if request.user.role == "ADMIN" %}
-      {% include '../dashboard/includes/admin-sidebar.html' %}
+        {% include '../dashboard/includes/admin-sidebar.html' %}
       {% elif request.user.role == "ATTENDANTS" %}
-      {% include '../dashboard/includes/attendant-sidebar.html' %}
-      {% elif request.user.role == "CLIENT" %}
-      {% include '../dashboard/includes/client-sidebar.html' %}
-      {% else %}
-      <p>No sidebar available for your role.</p>
+        {% include '../dashboard/includes/attendant-sidebar.html' %}
       {% endif %}
 
       <div id="layoutSidenav_content">
