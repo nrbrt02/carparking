@@ -1059,6 +1059,28 @@ def view_userA(request, user_id):
         },
     )
 
+
+@login_required
+@admin_required
+def view_userC(request, user_id):
+    user = get_object_or_404(User, id=user_id, role='CLIENT')
+    active_subscription = get_client_subscription(user)
+
+    progress_percentage = 0
+    if active_subscription:
+        start_date = active_subscription.start_date
+        end_date = active_subscription.end_date
+        now = timezone.now()  # Use timezone-aware current time
+
+        # Calculate total time and elapsed time in seconds
+        total_time = (end_date - start_date).total_seconds()
+        time_elapsed = (now - start_date).total_seconds()
+
+        # Ensure progress percentage is within bounds
+        progress_percentage = min(max((time_elapsed / total_time) * 100, 0), 100)
+
+    return render(request, 'dashboard/view-client.html', {'client': user, 'active_subscription': active_subscription, 'progress_percentage': progress_percentage})
+
 def calculate_cost(parking_space, subscription_time=None, start_date=None, end_date=None):
     """
     Calculate the total cost of a subscription.

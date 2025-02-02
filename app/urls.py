@@ -16,6 +16,7 @@ urlpatterns = [
     path('dashboard/uaccounts', views.uaccounts, name="uaccounts"),
     path('dashboard/uaccounts/edit/<int:user_id>/', views.edit_user, name='edit_user'),
     path('dashboard/uaccounts/view/<int:user_id>/', views.view_userA, name='view_userA'),
+    path('dashboard/uaccounts/view/<int:user_id>/client', views.view_userC, name='view_userC'),
     path('dashboard/uaccounts/create/', views.create_user, name='create_user'),
 
     path('dashboard/parking', views.parking, name="parking"),
