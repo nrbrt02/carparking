@@ -28,7 +28,7 @@ urlpatterns = [
     path("dashboard/subscriptions/create/", views.create_subscription, name="create_subscription"),
     path('dashboard/subscriptions/update/<int:subscription_id>/', views.update_subscription, name='update_subscription'),
     path('dashboard/subscription/<int:pk>/', views.subscription_view, name='subscription_view'),
-    path('dashboard/subscriptions/', views.subscription_list, name='subscription_list'),
+    path('dashboard/subscribed/', views.subscription_list, name='subscription_list'),
     
     path('dashboard/parkingspace', views.parkingspace, name="parkingspace"),
     path('dashboard/parkingspace/create/', views.create_parking_space, name='create_parking_space'),

@@ -10,7 +10,7 @@ from .decorators import admin_required, attendants_required, client_required, ad
 import random
 from django.utils import timezone
 from django.db import models
-from django.db.models import Q, Sum, F, ProtectedError
+from django.db.models import Q, Sum, F, ProtectedError, Sum, Count
 from django.http import HttpResponse, JsonResponse
 from datetime import timedelta, datetime
 from django.utils.timezone import now
@@ -18,7 +18,7 @@ from django.db import transaction
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
-
+from collections import defaultdict
 
 def home(request):
     parkinglots = ParkingLot.objects.all()
@@ -83,10 +83,6 @@ def contact_view(request):
 def unauthorized(request):
     return render(request, 'unauthorized.html')
 
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from .forms import LoginForm  # Ensure your LoginForm is correctly imported
 
 def loginuser(request):
     if request.method == 'POST':
@@ -280,29 +276,65 @@ def send_payment_status_email(subscription):
     email.content_subtype = "html"  # Send as HTML
     email.send()
 
+
 @login_required
 def dashboard(request):
     parking_spaces = []
     form = TicketForm()
     modal_open = False
 
+    if request.user.role == 'ADMIN':
+        current_month = now().month
+        current_year = now().year
+
+        parking_lot_data = ParkingLot.objects.annotate(ticket_count=Count('parking_spaces__ticket'))
+        top_parking_lots = (
+            ParkingLot.objects.annotate(
+                ticket_count=Count('parking_spaces__ticket'),
+                total_income=Sum('parking_spaces__ticket__total_payment')
+            )
+            .order_by('-ticket_count')[:5]
+        )
+
+        parking_lot_labels = [lot.name for lot in parking_lot_data]
+        parking_lot_counts = [lot.ticket_count for lot in parking_lot_data]
+
+        income_data = {
+            'total_subscription_income': Subscribed.objects.aggregate(total=Sum('total_cost'))['total'] or 0,
+            'monthly_subscription_income': Subscribed.objects.filter(
+                start_date__year=current_year, start_date__month=current_month
+            ).aggregate(total=Sum('total_cost'))['total'] or 0,
+            'total_ticket_income': Ticket.objects.aggregate(total=Sum('total_payment'))['total'] or 0,
+            'monthly_ticket_income': Ticket.objects.filter(
+                entry_time__year=current_year, entry_time__month=current_month
+            ).aggregate(total=Sum('total_payment'))['total'] or 0,
+            'total_subscribed': Subscribed.objects.count(),
+            'total_clients': User.objects.filter(role='CLIENT').count(),
+            'total_tickets': Ticket.objects.count(),
+            'total_attendants': User.objects.filter(role='ATTENDANTS').count(),
+        }
+
+        context = {
+            'top_parking_lots': top_parking_lots,
+            'income_data': income_data,
+            'parking_lot_labels': parking_lot_labels,
+            'parking_lot_counts': parking_lot_counts,
+        }
+
+        return render(request, "dashboard/index.html", context)
+
     if request.user.role == 'CLIENT':
-        # Get the active subscription for the client
         active_subscription = get_client_subscription(request.user)
         parking_lots = ParkingLot.objects.all()
 
-        # Calculate subscription progress if there's an active subscription
         progress_percentage = 0
         if active_subscription:
             start_date = active_subscription.start_date
             end_date = active_subscription.end_date
-            now = timezone.now()  # Use timezone-aware current time
+            now_time = now()
 
-            # Calculate total time and elapsed time in seconds
             total_time = (end_date - start_date).total_seconds()
-            time_elapsed = (now - start_date).total_seconds()
-
-            # Ensure progress percentage is within bounds
+            time_elapsed = (now_time - start_date).total_seconds()
             progress_percentage = min(max((time_elapsed / total_time) * 100, 0), 100)
 
         return render(
@@ -319,11 +351,10 @@ def dashboard(request):
 
     if request.user.role == 'ATTENDANTS':
         parking_spaces = get_user_parking_spaces(request.user)
-        
-        # Fetch ticket statistics and recent tickets
         ticket_stats = get_ticket_statistics(request.user)
         tickets = get_recent_tickets(request.user)
         unpaid_count = get_unpaid_subscriptions_count(request.user)
+
         return render(
             request,
             "dashboard/index.html",
@@ -333,11 +364,11 @@ def dashboard(request):
                 "parking_spaces": parking_spaces,
                 "form": form,
                 "modal_open": modal_open,
-                'unpaid_count': unpaid_count,
-                **ticket_stats,  # Spread the ticket statistics dictionary
+                "unpaid_count": unpaid_count,
+                **ticket_stats,
             },
         )
-    # Logic for other roles if needed
+
     return render(
         request,
         "dashboard/index.html",
